@@ -9,15 +9,15 @@ export function DualCTASection() {
 
   return (
     <section ref={ref} className="relative overflow-hidden">
-      <div className="grid md:grid-cols-2">
+      <div className="grid md:grid-cols-2 md:h-[450px]">
         {/* Left Panel - Interior Plantscaping */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={isVisible ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative group"
+          className="relative group h-full"
         >
-          <div className="bg-lavender section-padding min-h-[400px] flex flex-col justify-center items-center text-center transition-colors duration-500 group-hover:bg-lavender/90">
+          <div className="bg-lavender section-padding h-full flex flex-col justify-center items-center text-center transition-colors duration-500 group-hover:bg-lavender/90">
             {/* Background Image Placeholder */}
             <div className="absolute inset-0 opacity-20">
               <div className="w-full h-full bg-gradient-to-br from-night-green/20 to-transparent" />
@@ -41,9 +41,9 @@ export function DualCTASection() {
           initial={{ opacity: 0, x: 40 }}
           animate={isVisible ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative group"
+          className="relative group h-full"
         >
-          <div className="bg-mauve section-padding min-h-[400px] flex flex-col justify-center items-center text-center transition-colors duration-500 group-hover:bg-mauve/90">
+          <div className="bg-mauve section-padding h-full flex flex-col justify-center items-center text-center transition-colors duration-500 group-hover:bg-mauve/90">
             {/* Background Image Placeholder */}
             <div className="absolute inset-0 opacity-20">
               <div className="w-full h-full bg-gradient-to-bl from-night-green/20 to-transparent" />
