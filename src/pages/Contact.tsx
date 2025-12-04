@@ -3,13 +3,13 @@ import { Footer } from '@/components/layout/Footer';
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Button } from '@/components/ui/button';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
 
 const contactInfo = [
-  { icon: MapPin, label: "Address", value: "King Fahd Road, Riyadh, KSA" },
-  { icon: Phone, label: "Phone", value: "+966 11 XXX XXXX" },
-  { icon: Mail, label: "Email", value: "hello@districtinteriors.com" },
-  { icon: Clock, label: "Hours", value: "Sun–Thu: 9AM–6PM" }
+  { icon: Mail, label: "Email", value: "Sales@district.sa", href: "mailto:Sales@district.sa" },
+  { icon: Phone, label: "Phone", value: "+966 056 228 8177", href: "tel:+966562288177" },
+  { icon: MessageCircle, label: "WhatsApp", value: "+966 50 060 6506", href: "https://wa.me/966500606506" },
+  { icon: MapPin, label: "Address", value: "Al Zoubair Ibn Al Awwam, Ar Rawabi, Riyadh 14214", href: "https://share.google/OwSIbmaVwv0vXcatO" }
 ];
 
 const Contact = () => {
@@ -60,33 +60,52 @@ const Contact = () => {
 
                 <div className="space-y-6 mb-10">
                   {contactInfo.map((info, index) => (
-                    <motion.div
+                    <motion.a
                       key={info.label}
+                      href={info.href}
+                      target={info.label === 'Address' || info.label === 'WhatsApp' ? '_blank' : undefined}
+                      rel={info.label === 'Address' || info.label === 'WhatsApp' ? 'noopener noreferrer' : undefined}
                       initial={{ opacity: 0, x: -20 }}
                       animate={formRef.isVisible ? { opacity: 1, x: 0 } : {}}
                       transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                      className="flex items-start gap-4"
+                      className="flex items-start gap-4 group"
                     >
-                      <div className="w-12 h-12 rounded-sm bg-pear/30 flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 rounded-sm bg-pear/30 flex items-center justify-center flex-shrink-0 group-hover:bg-pear transition-colors duration-300">
                         <info.icon className="w-5 h-5 text-night-green" />
                       </div>
                       <div>
                         <span className="text-sm uppercase tracking-wider text-slate-moss/60 block">{info.label}</span>
-                        <span className="text-night-green">{info.value}</span>
+                        <span className="text-night-green group-hover:text-slate-moss transition-colors">{info.value}</span>
                       </div>
-                    </motion.div>
+                    </motion.a>
                   ))}
                 </div>
 
-                {/* Social Links Placeholder */}
+                {/* Social Links */}
                 <div>
                   <span className="text-sm uppercase tracking-wider text-slate-moss/60 block mb-4">Follow Us</span>
                   <div className="flex gap-4">
-                    <a href="#" className="w-10 h-10 rounded-sm bg-night-green/10 flex items-center justify-center hover:bg-night-green hover:text-ivory transition-colors">
+                    <a 
+                      href="https://www.instagram.com/districtflora" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-sm bg-night-green/10 flex items-center justify-center hover:bg-night-green hover:text-ivory transition-colors"
+                    >
                       <span className="text-xs font-semibold">IG</span>
                     </a>
-                    <a href="#" className="w-10 h-10 rounded-sm bg-night-green/10 flex items-center justify-center hover:bg-night-green hover:text-ivory transition-colors">
-                      <span className="text-xs font-semibold">LI</span>
+                    <a 
+                      href="https://www.tiktok.com/@districtflora" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-sm bg-night-green/10 flex items-center justify-center hover:bg-night-green hover:text-ivory transition-colors"
+                    >
+                      <span className="text-xs font-semibold">TT</span>
+                    </a>
+                    <a 
+                      href="#" 
+                      className="w-10 h-10 rounded-sm bg-night-green/10 flex items-center justify-center hover:bg-night-green hover:text-ivory transition-colors"
+                    >
+                      <span className="text-xs font-semibold">SC</span>
                     </a>
                   </div>
                 </div>
@@ -123,8 +142,9 @@ const Contact = () => {
                       <option value="">Select a service...</option>
                       <option value="plantscaping">Plantscaping</option>
                       <option value="tree-customization">Tree Customization</option>
+                      <option value="tree-restoration">Tree Restoration</option>
                       <option value="green-walls">Green Walls</option>
-                      <option value="planters">Custom Planters</option>
+                      <option value="planters">Custom Planter Design</option>
                       <option value="maintenance">Maintenance</option>
                       <option value="other">Other</option>
                     </select>

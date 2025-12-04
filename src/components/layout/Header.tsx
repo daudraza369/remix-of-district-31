@@ -12,9 +12,10 @@ const navItems = [
     href: '/services',
     children: [
       { label: 'Plantscaping (Office & F&B)', href: '/services/plantscaping' },
-      { label: 'Tree Customization & Restoration', href: '/services/tree-customization' },
+      { label: 'Tree Customization', href: '/services/tree-customization' },
+      { label: 'Tree Restoration', href: '/services/tree-restoration' },
       { label: 'Green Walls', href: '/services/green-walls' },
-      { label: 'Custom Planters', href: '/services/planters' },
+      { label: 'Custom Planter Design', href: '/services/planters' },
       { label: 'Maintenance', href: '/services/maintenance' },
     ],
   },
@@ -38,6 +39,18 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -58,13 +71,13 @@ export function Header() {
       <div className="container-luxury px-6 md:px-12 lg:px-20">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="relative z-10">
+          <Link to="/" className="relative z-[60]">
             <img
               src={logo}
               alt="District Interiors"
               className={cn(
                 'h-12 md:h-14 w-auto transition-all duration-300',
-                isScrolled ? 'brightness-100' : 'brightness-0 invert'
+                isMobileMenuOpen ? 'brightness-100' : isScrolled ? 'brightness-100' : 'brightness-0 invert'
               )}
             />
           </Link>
@@ -121,12 +134,12 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden relative z-10 p-2"
+            className="lg:hidden relative z-[60] p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
-              <X className={cn('w-6 h-6', 'text-night-green')} />
+              <X className="w-6 h-6 text-night-green" />
             ) : (
               <Menu
                 className={cn(
@@ -138,16 +151,16 @@ export function Header() {
           </button>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Full screen solid background */}
         <div
           className={cn(
-            'fixed inset-0 bg-ivory z-40 lg:hidden transition-all duration-500',
+            'fixed inset-0 bg-ivory z-50 lg:hidden transition-all duration-500 overflow-y-auto',
             isMobileMenuOpen
               ? 'opacity-100 pointer-events-auto'
               : 'opacity-0 pointer-events-none'
           )}
         >
-          <div className="flex flex-col items-center justify-center h-full gap-6 pt-20">
+          <div className="flex flex-col items-center justify-center min-h-full gap-5 py-24 px-6">
             {navItems.map((item, index) => (
               <div key={item.label} className="text-center">
                 <Link

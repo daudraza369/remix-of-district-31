@@ -39,6 +39,8 @@ const App = () => (
             <Route path="/tree-solutions" element={<TreeSolutions />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/plantscaping" element={<Services />} />
+            <Route path="/services/tree-customization" element={<Services />} />
+            <Route path="/services/tree-restoration" element={<Services />} />
             <Route path="/services/green-walls" element={<Services />} />
             <Route path="/services/planters" element={<Services />} />
             <Route path="/services/maintenance" element={<Services />} />
