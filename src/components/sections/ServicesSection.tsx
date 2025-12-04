@@ -4,42 +4,55 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import plantscapingImg from '@/assets/plantscaping-service.jpg';
+import treeCustomizationImg from '@/assets/tree-customization-service.jpg';
+import treeRestorationImg from '@/assets/tree-restoration-service.jpg';
+import greenWallImg from '@/assets/green-wall.jpg';
+import customPlanterImg from '@/assets/custom-planter-service.jpg';
+import maintenanceImg from '@/assets/maintenance-service.jpg';
+
 const services = [
   {
     title: 'Office & F&B Plantscaping',
     description: 'Greenery that works as hard as your space. Purposeful greenery that improves focus, comfort, and the way people experience space.',
     cta: 'Learn More',
     href: '/services/plantscaping',
+    image: plantscapingImg,
   },
   {
     title: 'Tree Customization',
     description: 'Your vision, brought to life in green. We design custom artificial trees with bespoke sizing, foliage density, and finishes that match your project\'s scale and aesthetic.',
     cta: 'Book a Consultation',
     href: '/services/tree-customization',
+    image: treeCustomizationImg,
   },
   {
     title: 'Tree Restoration',
     description: 'Breathe new life into your existing trees. Our specialists revive artificial and natural trees with UV-graded materials, extending beauty and lifespan.',
     cta: 'View More',
     href: '/services/tree-restoration',
+    image: treeRestorationImg,
   },
   {
     title: 'Green Wall Installations',
     description: 'Design vertical landscapes that inspire. We create artificial, natural, and preserved moss walls, integrating irrigation and lighting for lasting impact.',
     cta: 'Discover',
     href: '/services/green-walls',
+    image: greenWallImg,
   },
   {
     title: 'Custom Planter Design',
     description: 'Planters made to match your design vision. Crafted in GRC, acrylic, or stone, our planters complement interiors and exteriors with elegance and durability.',
     cta: 'See Collection',
     href: '/services/planters',
+    image: customPlanterImg,
   },
   {
     title: 'Natural Plant Maintenance',
     description: 'Keeping every plant at its best. Routine watering, pruning, and replacement programs ensure your greenery remains vibrant and flawless.',
     cta: 'Learn More',
     href: '/services/maintenance',
+    image: maintenanceImg,
   },
 ];
 
@@ -74,18 +87,13 @@ export function ServicesSection() {
               className="group h-full"
             >
               <div className="bg-ivory border border-stone/30 rounded-sm overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 h-full flex flex-col">
-                {/* Image Placeholder */}
-                <div className="aspect-[4/3] relative overflow-hidden bg-stone/20 flex-shrink-0">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center p-4">
-                      <div className="w-14 h-14 mx-auto mb-2 rounded-full bg-night-green/10 flex items-center justify-center">
-                        <svg className="w-7 h-7 text-night-green/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                      <p className="text-night-green/30 text-xs">[Image Placeholder]</p>
-                    </div>
-                  </div>
+                {/* Image */}
+                <div className="aspect-[4/3] relative overflow-hidden flex-shrink-0">
+                  <img 
+                    src={service.image} 
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
                   {/* Gradient overlay on hover */}
                   <div className="absolute inset-0 bg-gradient-to-t from-night-green/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
