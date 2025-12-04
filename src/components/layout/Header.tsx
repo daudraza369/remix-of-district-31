@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -30,6 +30,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +58,11 @@ export function Header() {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     }
     setIsMobileMenuOpen(false);
+  };
+
+  const handleDropdownItemClick = (href: string) => {
+    setActiveDropdown(null);
+    navigate(href);
   };
 
   return (
@@ -91,31 +97,49 @@ export function Header() {
                 onMouseEnter={() => item.children && setActiveDropdown(item.label)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <Link
-                  to={item.href}
-                  className={cn(
-                    'flex items-center gap-1 text-sm uppercase tracking-wider font-semibold transition-colors duration-300',
-                    isScrolled
-                      ? 'text-night-green hover:text-slate-moss'
-                      : 'text-ivory hover:text-stone'
-                  )}
-                >
-                  {item.label}
-                  {item.children && <ChevronDown className="w-4 h-4" />}
-                </Link>
+                {item.children ? (
+                  // Parent with dropdown - use button instead of link
+                  <button
+                    onClick={() => navigate(item.href)}
+                    className={cn(
+                      'flex items-center gap-1 text-sm uppercase tracking-wider font-semibold transition-colors duration-300',
+                      isScrolled
+                        ? 'text-night-green hover:text-slate-moss'
+                        : 'text-ivory hover:text-stone'
+                    )}
+                  >
+                    {item.label}
+                    <ChevronDown className={cn(
+                      'w-4 h-4 transition-transform duration-200',
+                      activeDropdown === item.label && 'rotate-180'
+                    )} />
+                  </button>
+                ) : (
+                  <Link
+                    to={item.href}
+                    className={cn(
+                      'flex items-center gap-1 text-sm uppercase tracking-wider font-semibold transition-colors duration-300',
+                      isScrolled
+                        ? 'text-night-green hover:text-slate-moss'
+                        : 'text-ivory hover:text-stone'
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                )}
 
                 {/* Dropdown */}
                 {item.children && activeDropdown === item.label && (
-                  <div className="absolute top-full left-0 pt-2 animate-fade-in">
+                  <div className="absolute top-full left-0 pt-2 animate-fade-in z-[100]">
                     <div className="bg-ivory rounded-sm shadow-xl py-3 min-w-[280px] border border-stone/30">
                       {item.children.map((child) => (
-                        <Link
+                        <button
                           key={child.label}
-                          to={child.href}
-                          className="block px-5 py-3 text-sm text-night-green hover:bg-pear/30 transition-colors duration-200"
+                          onClick={() => handleDropdownItemClick(child.href)}
+                          className="block w-full text-left px-5 py-3 text-sm text-night-green hover:bg-pear/30 transition-colors duration-200"
                         >
                           {child.label}
-                        </Link>
+                        </button>
                       ))}
                     </div>
                   </div>

@@ -3,36 +3,49 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import corporateLobbyImg from '@/assets/portfolio-corporate-lobby.jpg';
+import hotelAtriumImg from '@/assets/portfolio-hotel-atrium.jpg';
+import restaurantImg from '@/assets/portfolio-restaurant.jpg';
+import villaImg from '@/assets/portfolio-villa.jpg';
+import mallImg from '@/assets/portfolio-mall.jpg';
+import coworkingImg from '@/assets/portfolio-coworking.jpg';
+
 const projects = [
   {
     title: 'Modern Corporate Lobby',
     description: 'Custom planters, preserved wall, and focal tree installation.',
     category: 'Office',
+    image: corporateLobbyImg,
   },
   {
     title: 'Luxury Hotel Atrium',
     description: 'Full-scale artificial palm grove with integrated lighting.',
     category: 'Hospitality',
+    image: hotelAtriumImg,
   },
   {
     title: 'Fine Dining Restaurant',
     description: 'Living green wall with preserved moss accents.',
     category: 'F&B',
+    image: restaurantImg,
   },
   {
     title: 'Private Villa Garden',
     description: 'Custom olive trees and Mediterranean plantscaping.',
     category: 'Residential',
+    image: villaImg,
   },
   {
     title: 'Shopping Mall Entrance',
     description: 'Statement ficus installation with seasonal rotation.',
     category: 'Retail',
+    image: mallImg,
   },
   {
     title: 'Co-Working Space',
     description: 'Biophilic design with desk planters and partition walls.',
     category: 'Office',
+    image: coworkingImg,
   },
 ];
 
@@ -55,7 +68,7 @@ export function PortfolioSection() {
           </p>
         </motion.div>
 
-        {/* Portfolio Grid - Masonry-like */}
+        {/* Portfolio Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <motion.div
@@ -67,24 +80,18 @@ export function PortfolioSection() {
                 delay: index * 0.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className={index === 0 || index === 4 ? 'md:col-span-2 lg:col-span-1' : ''}
             >
               <Link
                 to="/projects"
-                className="group block relative rounded-sm overflow-hidden bg-stone/30"
+                className="group block relative rounded-sm overflow-hidden"
               >
-                <div className={`aspect-[4/3] ${index === 0 ? 'lg:aspect-[4/3]' : ''}`}>
-                  {/* Image Placeholder */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-night-green/10 to-slate-moss/20">
-                    <div className="text-center p-4">
-                      <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-night-green/10 flex items-center justify-center">
-                        <svg className="w-8 h-8 text-night-green/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                      <p className="text-night-green/40 text-xs uppercase tracking-wider">[Image Placeholder]</p>
-                    </div>
-                  </div>
+                <div className="aspect-[4/3]">
+                  {/* Image */}
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
 
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-night-green via-night-green/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
