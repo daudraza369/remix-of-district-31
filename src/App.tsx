@@ -24,7 +24,7 @@ import ClientsAdmin from "./pages/admin/ClientsAdmin";
 import StatsAdmin from "./pages/admin/StatsAdmin";
 import MediaAdmin from "./pages/admin/MediaAdmin";
 import UsersAdmin from "./pages/admin/UsersAdmin";
-import SectionsAdmin from "./pages/admin/SectionsAdmin";
+import PageBuilder from "./pages/admin/PageBuilder";
 
 const queryClient = new QueryClient();
 
@@ -53,7 +53,7 @@ const App = () => (
             {/* Admin routes */}
             <Route path="/admin/auth" element={<AdminAuth />} />
             <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/sections" element={<SectionsAdmin />} />
+            <Route path="/admin/pages" element={<PageBuilder />} />
             <Route path="/admin/projects" element={<ProjectsAdmin />} />
             <Route path="/admin/services" element={<ServicesAdmin />} />
             <Route path="/admin/collection" element={<CollectionAdmin />} />
