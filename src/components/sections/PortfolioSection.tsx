@@ -4,24 +4,16 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import corporateLobbyImg from '@/assets/portfolio-corporate-lobby.jpg';
-import hotelAtriumImg from '@/assets/portfolio-hotel-atrium.jpg';
 import restaurantImg from '@/assets/portfolio-restaurant.jpg';
 import villaImg from '@/assets/portfolio-villa.jpg';
-import mallImg from '@/assets/portfolio-mall.jpg';
 import coworkingImg from '@/assets/portfolio-coworking.jpg';
 
 const projects = [
   {
     title: 'Modern Corporate Lobby',
     description: 'Custom planters, preserved wall, and focal tree installation.',
-    category: 'Office',
+    category: 'Offices',
     image: corporateLobbyImg,
-  },
-  {
-    title: 'Luxury Hotel Atrium',
-    description: 'Full-scale artificial palm grove with integrated lighting.',
-    category: 'Hospitality',
-    image: hotelAtriumImg,
   },
   {
     title: 'Fine Dining Restaurant',
@@ -32,19 +24,13 @@ const projects = [
   {
     title: 'Private Villa Garden',
     description: 'Custom olive trees and Mediterranean plantscaping.',
-    category: 'Residential',
+    category: 'Private Villa',
     image: villaImg,
-  },
-  {
-    title: 'Shopping Mall Entrance',
-    description: 'Statement ficus installation with seasonal rotation.',
-    category: 'Retail',
-    image: mallImg,
   },
   {
     title: 'Co-Working Space',
     description: 'Biophilic design with desk planters and partition walls.',
-    category: 'Office',
+    category: 'Offices',
     image: coworkingImg,
   },
 ];
@@ -53,7 +39,7 @@ export function PortfolioSection() {
   const { ref, isVisible } = useScrollAnimation<HTMLElement>();
 
   return (
-    <section id="portfolio" ref={ref} className="section-padding bg-pear/30">
+    <section id="portfolio" ref={ref} className="section-padding bg-gradient-to-b from-ivory to-pear/20">
       <div className="container-luxury">
         {/* Header */}
         <motion.div
@@ -62,14 +48,14 @@ export function PortfolioSection() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
-          <h2 className="text-night-green mb-4">Spaces Transformed Through Green Design</h2>
+          <h2 className="text-night-green mb-4 uppercase font-heading">GLIMPSE INTO OUR WORLD</h2>
           <p className="text-body-large text-slate-moss max-w-2xl mx-auto">
             A showcase of curated interiors and custom installations.
           </p>
         </motion.div>
 
-        {/* Portfolio Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Portfolio Grid - consistent card sizes for video covers (9:16 aspect ratio) */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
@@ -85,7 +71,8 @@ export function PortfolioSection() {
                 to="/projects"
                 className="group block relative rounded-sm overflow-hidden"
               >
-                <div className="aspect-[4/3]">
+                {/* 9:16 aspect ratio for vertical video covers */}
+                <div className="aspect-[9/16]">
                   {/* Image */}
                   <img 
                     src={project.image} 
@@ -93,12 +80,17 @@ export function PortfolioSection() {
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
 
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-night-green via-night-green/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-6">
-                    <span className="text-pear text-xs uppercase tracking-wider mb-2">{project.category}</span>
-                    <h4 className="text-ivory mb-2">{project.title}</h4>
-                    <p className="text-stone/90 text-sm mb-4">{project.description}</p>
-                    <span className="text-ivory flex items-center gap-2 text-sm font-semibold">
+                  {/* Gradient Overlay - always visible */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-night-green/90 via-night-green/30 to-transparent" />
+
+                  {/* Content - positioned at bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <span className="inline-block px-3 py-1 bg-pear/90 text-night-green text-xs uppercase tracking-wider font-nav rounded-sm mb-3">
+                      {project.category}
+                    </span>
+                    <h4 className="text-ivory mb-2 text-lg font-heading">{project.title}</h4>
+                    <p className="text-stone/90 text-sm mb-3 line-clamp-2">{project.description}</p>
+                    <span className="text-pear flex items-center gap-2 text-sm font-nav uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       View Project
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </span>

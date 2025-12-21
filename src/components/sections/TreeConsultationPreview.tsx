@@ -9,7 +9,7 @@ export function TreeConsultationPreview() {
   const { ref, isVisible } = useScrollAnimation<HTMLElement>();
 
   return (
-    <section ref={ref} className="section-padding bg-ivory">
+    <section ref={ref} className="section-padding bg-gradient-to-r from-night-green to-slate-moss">
       <div className="container-luxury">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Text Content */}
@@ -18,16 +18,16 @@ export function TreeConsultationPreview() {
             animate={isVisible ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h2 className="text-night-green mb-6">Guided Tree Design, Tailored to Your Space</h2>
-            <p className="text-xl text-slate-moss mb-4">
-              From idea to installation, we help you choose, customize, and install trees that transform your environment.
+            <h2 className="text-ivory mb-6 uppercase font-heading">TREE SOLUTIONS</h2>
+            <p className="text-xl text-stone mb-4">
+              Guided Tree Design, Tailored to Your Space
             </p>
-            <p className="text-body text-slate-moss/80 leading-relaxed mb-8">
-              Our consultation process ensures each project fits seamlessly within your environment, budget, and design intent. We guide you through every stage: choosing the right tree type, defining size and material, and planning the installation timeline.
+            <p className="text-body text-stone/80 leading-relaxed mb-8">
+              From idea to installation, we help you choose, customize, and install trees that transform your environment. Our consultation process ensures each project fits seamlessly within your environment, budget, and design intent.
             </p>
             <Link to="/tree-solutions">
-              <Button variant="default" size="lg" className="group">
-                Book a Consultation & Get Your Tree
+              <Button variant="hero" size="lg" className="group">
+                Explore Tree Solutions
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -40,7 +40,7 @@ export function TreeConsultationPreview() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            <div className="aspect-video rounded-sm overflow-hidden shadow-2xl">
+            <div className="aspect-video rounded-sm overflow-hidden shadow-2xl border border-ivory/10">
               <img
                 src={oliveTree}
                 alt="Custom olive tree installation"
@@ -52,9 +52,9 @@ export function TreeConsultationPreview() {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity }}
-              className="absolute -top-4 -right-4 w-24 h-24 bg-pear/40 rounded-sm -z-10"
+              className="absolute -top-4 -right-4 w-24 h-24 bg-pear/30 rounded-sm -z-10"
             />
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 border border-night-green/20 rounded-sm -z-10" />
+            <div className="absolute -bottom-4 -left-4 w-32 h-32 border border-ivory/20 rounded-sm -z-10" />
           </motion.div>
         </div>
       </div>

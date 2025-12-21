@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         heading: ['Kalice', 'Playfair Display', 'Georgia', 'serif'],
         body: ['Santana', 'Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        nav: ['PP Fragment', 'Inter', 'sans-serif'],
       },
       colors: {
         // Brand Colors

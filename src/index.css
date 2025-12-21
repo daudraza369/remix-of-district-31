@@ -28,6 +28,15 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'PP Fragment';
+  src: url('/fonts/PPFragment-TextBold.woff2') format('woff2'),
+       url('/fonts/PPFragment-TextBold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     /* District Interiors Brand Colors */

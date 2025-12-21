@@ -11,6 +11,7 @@ import Collection from "./pages/Collection";
 import Projects from "./pages/Projects";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Hospitality from "./pages/Hospitality";
 import NotFound from "./pages/NotFound";
 
 // Admin pages
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/projects" element={<Projects />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/hospitality" element={<Hospitality />} />
             
             {/* Admin routes */}
             <Route path="/admin/auth" element={<AdminAuth />} />

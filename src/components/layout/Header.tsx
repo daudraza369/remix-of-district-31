@@ -6,24 +6,21 @@ import { cn } from '@/lib/utils';
 import logo from '@/assets/district-logo.png';
 
 const navItems = [
-  { label: 'Home', href: '/' },
+  { label: 'DISTRICT', href: '/' },
+  { label: 'FLOWERS', href: 'https://flowers.district.com', external: true },
   {
-    label: 'Services',
+    label: 'INTERIORS',
     href: '/services',
     children: [
-      { label: 'Plantscaping (Office & F&B)', href: '/services/plantscaping' },
-      { label: 'Tree Customization', href: '/services/tree-customization' },
-      { label: 'Tree Restoration', href: '/services/tree-restoration' },
-      { label: 'Green Walls', href: '/services/green-walls' },
-      { label: 'Custom Planter Design', href: '/services/planters' },
-      { label: 'Maintenance', href: '/services/maintenance' },
+      { label: 'PLANTSCAPING', href: '/services/plantscaping' },
+      { label: 'TREE SOLUTIONS', href: '/tree-solutions' },
+      { label: 'PLANT MAINTENANCE', href: '/services/maintenance' },
+      { label: 'CUSTOM PLANTERS', href: '/services/planters' },
+      { label: 'GREEN WALLS', href: '/services/green-walls' },
     ],
   },
-  { label: 'Collection', href: '/collection' },
-  { label: 'Tree Solutions', href: '/tree-solutions' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'HOSPITALITY', href: '/hospitality' },
+  { label: 'PROJECTS', href: '/projects' },
 ];
 
 export function Header() {
@@ -75,26 +72,31 @@ export function Header() {
     navigate(href);
   };
 
+  const handleNavClick = (item: typeof navItems[0]) => {
+    if (item.external) {
+      window.open(item.href, '_blank');
+    } else {
+      navigate(item.href);
+    }
+  };
+
   return (
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
         isScrolled
-          ? 'bg-ivory/95 backdrop-blur-md shadow-lg py-3'
-          : 'bg-transparent py-6'
+          ? 'bg-night-green/95 backdrop-blur-md shadow-lg py-3'
+          : 'bg-night-green py-4'
       )}
     >
       <div className="container-luxury px-6 md:px-12 lg:px-20">
         <nav className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo - using wordmark */}
           <Link to="/" className="relative z-[60]">
             <img
               src={logo}
-              alt="District Interiors"
-              className={cn(
-                'h-12 md:h-14 w-auto transition-all duration-300',
-                isMobileMenuOpen ? 'brightness-100' : isScrolled ? 'brightness-100' : 'brightness-0 invert'
-              )}
+              alt="District"
+              className="h-10 md:h-12 w-auto brightness-0 invert"
             />
           </Link>
 
@@ -108,14 +110,12 @@ export function Header() {
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 {item.children ? (
-                  // Parent with dropdown - use button instead of link
+                  // Parent with dropdown
                   <button
-                    onClick={() => navigate(item.href)}
+                    onClick={() => handleNavClick(item)}
                     className={cn(
-                      'flex items-center gap-1 text-sm uppercase tracking-wider font-semibold transition-colors duration-300',
-                      isScrolled
-                        ? 'text-night-green hover:text-slate-moss'
-                        : 'text-ivory hover:text-stone'
+                      'flex items-center gap-1 text-sm font-nav uppercase tracking-wider transition-colors duration-300',
+                      activeDropdown === item.label ? 'text-pear' : 'text-ivory hover:text-pear'
                     )}
                   >
                     {item.label}
@@ -125,28 +125,23 @@ export function Header() {
                     )} />
                   </button>
                 ) : (
-                  <Link
-                    to={item.href}
-                    className={cn(
-                      'flex items-center gap-1 text-sm uppercase tracking-wider font-semibold transition-colors duration-300',
-                      isScrolled
-                        ? 'text-night-green hover:text-slate-moss'
-                        : 'text-ivory hover:text-stone'
-                    )}
+                  <button
+                    onClick={() => handleNavClick(item)}
+                    className="flex items-center gap-1 text-sm font-nav uppercase tracking-wider text-ivory hover:text-pear transition-colors duration-300"
                   >
                     {item.label}
-                  </Link>
+                  </button>
                 )}
 
                 {/* Dropdown */}
                 {item.children && activeDropdown === item.label && (
                   <div className="absolute top-full left-0 pt-2 animate-fade-in z-[100]">
-                    <div className="bg-ivory rounded-sm shadow-xl py-3 min-w-[280px] border border-stone/30">
+                    <div className="bg-night-green/95 backdrop-blur-md rounded-sm shadow-xl py-3 min-w-[220px] border border-ivory/10">
                       {item.children.map((child) => (
                         <button
                           key={child.label}
                           onClick={(e) => handleDropdownItemClick(e, child.href)}
-                          className="block w-full text-left px-5 py-3 text-sm text-night-green hover:bg-pear/30 transition-colors duration-200"
+                          className="block w-full text-left px-5 py-3 text-sm font-nav text-ivory hover:bg-pear/20 hover:text-pear transition-colors duration-200"
                         >
                           {child.label}
                         </button>
@@ -158,11 +153,12 @@ export function Header() {
             ))}
 
             <Button
-              variant={isScrolled ? 'default' : 'hero'}
+              variant="hero"
               size="sm"
               onClick={handleConsultation}
+              className="font-nav"
             >
-              Request a Consultation
+              REQUEST A CONSULTATION
             </Button>
           </div>
 
@@ -175,12 +171,7 @@ export function Header() {
             {isMobileMenuOpen ? (
               <X className="w-6 h-6 text-night-green" />
             ) : (
-              <Menu
-                className={cn(
-                  'w-6 h-6',
-                  isScrolled ? 'text-night-green' : 'text-ivory'
-                )}
-              />
+              <Menu className="w-6 h-6 text-ivory" />
             )}
           </button>
         </nav>
@@ -197,25 +188,29 @@ export function Header() {
           <div className="flex flex-col items-center justify-center min-h-full gap-5 py-24 px-6">
             {navItems.map((item, index) => (
               <div key={item.label} className="text-center">
-                <Link
-                  to={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-2xl font-heading text-night-green hover:text-slate-moss transition-colors"
+                <button
+                  onClick={() => {
+                    handleNavClick(item);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-2xl font-nav text-night-green hover:text-slate-moss transition-colors uppercase tracking-wider"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {item.label}
-                </Link>
+                </button>
                 {item.children && (
                   <div className="mt-3 space-y-2">
                     {item.children.map((child) => (
-                      <Link
+                      <button
                         key={child.label}
-                        to={child.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="block text-sm text-slate-moss hover:text-night-green transition-colors"
+                        onClick={() => {
+                          navigate(child.href);
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="block w-full text-sm font-nav text-slate-moss hover:text-night-green transition-colors uppercase tracking-wider"
                       >
                         {child.label}
-                      </Link>
+                      </button>
                     ))}
                   </div>
                 )}
@@ -225,9 +220,9 @@ export function Header() {
               variant="default"
               size="lg"
               onClick={handleConsultation}
-              className="mt-6"
+              className="mt-6 font-nav"
             >
-              Request a Consultation
+              REQUEST A CONSULTATION
             </Button>
           </div>
         </div>
