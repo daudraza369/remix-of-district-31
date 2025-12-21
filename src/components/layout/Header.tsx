@@ -7,7 +7,7 @@ import logo from '@/assets/district-logo.png';
 
 const navItems = [
   { label: 'DISTRICT', href: '/' },
-  { label: 'FLOWERS', href: 'https://flowers.district.com', external: true },
+  { label: 'FLOWERS', href: '/flowers' },
   {
     label: 'INTERIORS',
     href: '/services',
@@ -73,11 +73,7 @@ export function Header() {
   };
 
   const handleNavClick = (item: typeof navItems[0]) => {
-    if (item.external) {
-      window.open(item.href, '_blank');
-    } else {
-      navigate(item.href);
-    }
+    navigate(item.href);
   };
 
   return (
