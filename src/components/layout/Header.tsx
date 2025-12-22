@@ -239,13 +239,14 @@ export function Header() {
       {/* Mobile Menu - Full screen solid background - OUTSIDE container for full coverage */}
       <div
         className={cn(
-          'fixed inset-0 bg-ivory z-[1050] lg:hidden transition-all duration-500 overflow-y-auto',
+          'fixed top-0 left-0 right-0 bottom-0 w-full h-full bg-ivory z-[2000] lg:hidden transition-all duration-500 overflow-y-auto',
           isMobileMenuOpen
             ? 'opacity-100 pointer-events-auto visible'
             : 'opacity-0 pointer-events-none invisible'
         )}
+        style={{ position: 'fixed', inset: 0 }}
       >
-        <div className="flex flex-col items-center justify-center min-h-full gap-5 py-24 px-6">
+        <div className="flex flex-col items-center justify-center min-h-screen gap-5 py-24 px-6">
           {navItems.map((item, index) => (
             <div key={item.label} className="text-center">
               <button
