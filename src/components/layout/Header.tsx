@@ -85,199 +85,204 @@ export function Header() {
   };
 
   return (
-    <header
-      className={cn(
-        'fixed top-0 left-0 right-0 z-[1000] transition-all duration-700 ease-out',
-        isScrolled || !hasHeroSection
-          ? 'py-3 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border-b border-ivory/20'
-          : 'py-5 bg-transparent'
-      )}
-      style={{
-        // Liquid glass gradient effect when scrolled OR on non-hero pages
-        background: (isScrolled || !hasHeroSection)
-          ? 'linear-gradient(135deg, hsla(60, 3%, 78%, 0.75) 0%, hsla(60, 30%, 98%, 0.6) 50%, hsla(155, 22%, 16%, 0.2) 100%)'
-          : 'transparent'
-      }}
-    >
-      <div className="container-luxury px-6 md:px-12 lg:px-20">
-        <nav className="flex items-center justify-between">
-          {/* Logo - Ivory lockup on dark hero backgrounds, night-green elsewhere */}
-          <Link to="/" className="relative z-[60] flex flex-col items-center group">
-            {/* Full logo lockup - ivory on hero pages for visibility, night-green on light backgrounds */}
-            <img
-              src={shouldUseTransparentHeader ? logoLockup : logoLockupNightGreen}
-              alt="District Interiors"
-              className={cn(
-                "h-16 md:h-20 w-auto transition-all duration-500",
-                isScrolled ? "opacity-0 h-0 absolute" : "opacity-100"
-              )}
-            />
-            {/* Brandmark only - night-green when scrolled (always on solid background) */}
-            <img
-              src={logoBrandmarkNightGreen}
-              alt="District"
-              className={cn(
-                "h-10 md:h-12 w-auto transition-all duration-500",
-                isScrolled ? "opacity-100" : "opacity-0 h-0 absolute"
-              )}
-            />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
-              <div
-                key={item.label}
-                className="relative"
-                onMouseEnter={() => item.children && setActiveDropdown(item.label)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                {item.children ? (
-                  <button
-                    onClick={() => handleNavClick(item)}
-                    className={cn(
-                      'flex items-center gap-1 text-sm font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
-                      'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
-                      shouldUseTransparentHeader
-                        ? 'text-ivory/90 hover:text-pear before:bg-pear' 
-                        : 'text-night-green hover:text-slate-moss before:bg-night-green',
-                      activeDropdown === item.label && (shouldUseTransparentHeader ? 'text-pear' : 'text-slate-moss'),
-                      'hover:before:scale-x-100 hover:before:origin-left'
-                    )}
-                  >
-                    {item.label}
-                    <ChevronDown className={cn(
-                      'w-4 h-4 transition-transform duration-300',
-                      activeDropdown === item.label && 'rotate-180'
-                    )} />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handleNavClick(item)}
-                    className={cn(
-                      'flex items-center gap-1 text-sm font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
-                      'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
-                      shouldUseTransparentHeader
-                        ? 'text-ivory/90 hover:text-pear before:bg-pear' 
-                        : 'text-night-green hover:text-slate-moss before:bg-night-green',
-                      'hover:before:scale-x-100 hover:before:origin-left'
-                    )}
-                  >
-                    {item.label}
-                  </button>
+    <>
+      {/* Main Header */}
+      <header
+        className={cn(
+          'fixed top-0 left-0 right-0 z-[1000] transition-all duration-700 ease-out',
+          isScrolled || !hasHeroSection
+            ? 'py-3 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border-b border-ivory/20'
+            : 'py-5 bg-transparent'
+        )}
+        style={{
+          background: (isScrolled || !hasHeroSection)
+            ? 'linear-gradient(135deg, hsla(60, 3%, 78%, 0.75) 0%, hsla(60, 30%, 98%, 0.6) 50%, hsla(155, 22%, 16%, 0.2) 100%)'
+            : 'transparent'
+        }}
+      >
+        <div className="container-luxury px-6 md:px-12 lg:px-20">
+          <nav className="flex items-center justify-between">
+            {/* Logo */}
+            <Link to="/" className="relative z-[60] flex flex-col items-center group">
+              <img
+                src={shouldUseTransparentHeader ? logoLockup : logoLockupNightGreen}
+                alt="District Interiors"
+                className={cn(
+                  "h-16 md:h-20 w-auto transition-all duration-500",
+                  isScrolled ? "opacity-0 h-0 absolute" : "opacity-100"
                 )}
+              />
+              <img
+                src={logoBrandmarkNightGreen}
+                alt="District"
+                className={cn(
+                  "h-10 md:h-12 w-auto transition-all duration-500",
+                  isScrolled ? "opacity-100" : "opacity-0 h-0 absolute"
+                )}
+              />
+            </Link>
 
-                {/* Dropdown - Solid opaque card for readability */}
-                {item.children && activeDropdown === item.label && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 animate-fade-in z-[1500]">
-                    <div 
-                      className="rounded-lg py-4 min-w-[220px] border border-stone/20 shadow-2xl"
-                      style={{
-                        background: '#F5F5F0',
-                        boxShadow: '0 20px 50px rgba(0,0,0,0.25), 0 8px 16px rgba(0,0,0,0.15)'
-                      }}
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-8">
+              {navItems.map((item) => (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => item.children && setActiveDropdown(item.label)}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
+                  {item.children ? (
+                    <button
+                      onClick={() => handleNavClick(item)}
+                      className={cn(
+                        'flex items-center gap-1 text-sm font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
+                        'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
+                        shouldUseTransparentHeader
+                          ? 'text-ivory/90 hover:text-pear before:bg-pear' 
+                          : 'text-night-green hover:text-slate-moss before:bg-night-green',
+                        activeDropdown === item.label && (shouldUseTransparentHeader ? 'text-pear' : 'text-slate-moss'),
+                        'hover:before:scale-x-100 hover:before:origin-left'
+                      )}
                     >
-                      {item.children.map((child) => (
-                        <button
-                          key={child.label}
-                          onClick={(e) => handleDropdownItemClick(e, child.href)}
-                          className="block w-full text-center px-6 py-3 text-sm font-nav font-bold uppercase tracking-wider text-night-green hover:text-slate-moss hover:bg-pear/10 transition-all duration-200"
-                        >
-                          {child.label}
-                        </button>
-                      ))}
+                      {item.label}
+                      <ChevronDown className={cn(
+                        'w-4 h-4 transition-transform duration-300',
+                        activeDropdown === item.label && 'rotate-180'
+                      )} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleNavClick(item)}
+                      className={cn(
+                        'flex items-center gap-1 text-sm font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
+                        'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
+                        shouldUseTransparentHeader
+                          ? 'text-ivory/90 hover:text-pear before:bg-pear' 
+                          : 'text-night-green hover:text-slate-moss before:bg-night-green',
+                        'hover:before:scale-x-100 hover:before:origin-left'
+                      )}
+                    >
+                      {item.label}
+                    </button>
+                  )}
+
+                  {/* Dropdown */}
+                  {item.children && activeDropdown === item.label && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 animate-fade-in z-[1500]">
+                      <div 
+                        className="rounded-lg py-4 min-w-[220px] border border-stone/20 shadow-2xl"
+                        style={{
+                          background: '#F5F5F0',
+                          boxShadow: '0 20px 50px rgba(0,0,0,0.25), 0 8px 16px rgba(0,0,0,0.15)'
+                        }}
+                      >
+                        {item.children.map((child) => (
+                          <button
+                            key={child.label}
+                            onClick={(e) => handleDropdownItemClick(e, child.href)}
+                            className="block w-full text-center px-6 py-3 text-sm font-nav font-bold uppercase tracking-wider text-night-green hover:text-slate-moss hover:bg-pear/10 transition-all duration-200"
+                          >
+                            {child.label}
+                          </button>
+                        ))}
+                      </div>
                     </div>
+                  )}
+                </div>
+              ))}
+
+              {/* CTA Button */}
+              <Button
+                onClick={handleConsultation}
+                className={cn(
+                  "font-heading text-xs tracking-wider uppercase transition-all duration-500",
+                  "shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)]",
+                  "hover:-translate-y-0.5",
+                  shouldUseTransparentHeader
+                    ? "bg-pear/90 text-night-green hover:bg-pear border border-pear/50" 
+                    : "bg-night-green text-ivory hover:bg-slate-moss"
+                )}
+                size="sm"
+              >
+                REQUEST A CONSULTATION
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button - Only show when menu is closed */}
+            {!isMobileMenuOpen && (
+              <button
+                className="lg:hidden p-2"
+                onClick={() => setIsMobileMenuOpen(true)}
+                aria-label="Open menu"
+              >
+                <Menu className={cn(
+                  "w-6 h-6 transition-colors duration-300",
+                  shouldUseTransparentHeader ? "text-ivory" : "text-night-green"
+                )} />
+              </button>
+            )}
+          </nav>
+        </div>
+      </header>
+
+      {/* Mobile Menu - Rendered as sibling, not child of header */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 z-[9999] lg:hidden"
+          style={{ background: '#F8F8F5' }}
+        >
+          {/* Close Button - Fixed position at top right */}
+          <button
+            className="absolute top-6 right-6 p-2 z-[10000]"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <X className="w-8 h-8 text-night-green" />
+          </button>
+
+          {/* Menu Content */}
+          <div className="flex flex-col items-center justify-center min-h-full gap-6 py-24 px-6">
+            {navItems.map((item, index) => (
+              <div key={item.label} className="text-center">
+                <button
+                  onClick={() => {
+                    handleNavClick(item);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-2xl font-heading text-night-green hover:text-slate-moss transition-colors uppercase tracking-wider"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  {item.label}
+                </button>
+                {item.children && (
+                  <div className="mt-4 space-y-3">
+                    {item.children.map((child) => (
+                      <button
+                        key={child.label}
+                        onClick={() => {
+                          navigate(child.href);
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="block w-full text-base font-heading text-slate-moss hover:text-night-green transition-colors uppercase tracking-wider"
+                      >
+                        {child.label}
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
             ))}
-
-            {/* CTA Button - Premium elevated style */}
             <Button
+              variant="default"
+              size="lg"
               onClick={handleConsultation}
-              className={cn(
-                "font-heading text-xs tracking-wider uppercase transition-all duration-500",
-                "shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)]",
-                "hover:-translate-y-0.5",
-                shouldUseTransparentHeader
-                  ? "bg-pear/90 text-night-green hover:bg-pear border border-pear/50" 
-                  : "bg-night-green text-ivory hover:bg-slate-moss"
-              )}
-              size="sm"
+              className="mt-8 font-heading bg-night-green text-ivory hover:bg-slate-moss"
             >
               REQUEST A CONSULTATION
             </Button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden relative z-[1100] p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6 text-night-green" />
-            ) : (
-              <Menu className={cn(
-                "w-6 h-6 transition-colors duration-300",
-                shouldUseTransparentHeader ? "text-ivory" : "text-night-green"
-              )} />
-            )}
-          </button>
-        </nav>
-      </div>
-
-      {/* Mobile Menu - Full screen solid background - OUTSIDE container for full coverage */}
-      <div
-        className={cn(
-          'fixed top-0 left-0 right-0 bottom-0 w-full h-full bg-ivory z-[2000] lg:hidden transition-all duration-500 overflow-y-auto',
-          isMobileMenuOpen
-            ? 'opacity-100 pointer-events-auto visible'
-            : 'opacity-0 pointer-events-none invisible'
-        )}
-        style={{ position: 'fixed', inset: 0 }}
-      >
-        <div className="flex flex-col items-center justify-center min-h-screen gap-5 py-24 px-6">
-          {navItems.map((item, index) => (
-            <div key={item.label} className="text-center">
-              <button
-                onClick={() => {
-                  handleNavClick(item);
-                  setIsMobileMenuOpen(false);
-                }}
-                className="text-2xl font-heading text-night-green hover:text-slate-moss transition-colors uppercase tracking-wider"
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                {item.label}
-              </button>
-              {item.children && (
-                <div className="mt-3 space-y-2">
-                  {item.children.map((child) => (
-                    <button
-                      key={child.label}
-                      onClick={() => {
-                        navigate(child.href);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="block w-full text-sm font-heading text-slate-moss hover:text-night-green transition-colors uppercase tracking-wider"
-                    >
-                      {child.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-          <Button
-            variant="default"
-            size="lg"
-            onClick={handleConsultation}
-            className="mt-6 font-heading"
-          >
-            REQUEST A CONSULTATION
-          </Button>
         </div>
-      </div>
-    </header>
+      )}
+    </>
   );
 }
