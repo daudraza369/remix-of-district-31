@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import logoBrandmark from '@/assets/district-brandmark.png';
 import logoLockup from '@/assets/district-logo-lockup.png';
+import logoLockupNightGreen from '@/assets/district-logo-lockup-night-green.png';
 
 // Pages that have dark hero sections where transparent header works well
 const HERO_PAGES = ['/', '/flowers', '/hospitality', '/projects', '/tree-solutions'];
@@ -99,14 +100,14 @@ export function Header() {
     >
       <div className="container-luxury px-6 md:px-12 lg:px-20">
         <nav className="flex items-center justify-between">
-          {/* Logo - Full lockup at top, monogram only on scroll */}
+          {/* Logo - Full lockup at top (night green on non-hero pages), monogram only on scroll */}
           <Link to="/" className="relative z-[60] flex flex-col items-center group">
             {/* Full logo lockup - visible when not scrolled */}
             <img
-              src={logoLockup}
+              src={hasHeroSection ? logoLockup : logoLockupNightGreen}
               alt="District Interiors"
               className={cn(
-                "h-14 md:h-16 w-auto transition-all duration-500",
+                "h-16 md:h-20 w-auto transition-all duration-500",
                 isScrolled ? "opacity-0 h-0 absolute" : "opacity-100"
               )}
             />
