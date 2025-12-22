@@ -91,23 +91,19 @@ export function Header() {
     >
       <div className="container-luxury px-6 md:px-12 lg:px-20">
         <nav className="flex items-center justify-between">
-          {/* Logo - Pear colored monogram with DISTRICT wordmark */}
+          {/* Logo - #cddb96 colored monogram with DISTRICT wordmark in Kalice semi-bold */}
           <Link to="/" className="relative z-[60] flex flex-col items-center group">
             <img
               src={logo}
               alt="District"
-              className={cn(
-                "h-10 md:h-12 w-auto transition-all duration-500",
-                // Pear color filter for the logo
-                "brightness-0 saturate-100",
-                "[filter:invert(90%)_sepia(12%)_saturate(648%)_hue-rotate(31deg)_brightness(103%)_contrast(87%)]"
-              )}
+              className="h-10 md:h-12 w-auto transition-all duration-500 brightness-0 saturate-100"
+              style={{
+                filter: 'invert(92%) sepia(16%) saturate(572%) hue-rotate(27deg) brightness(99%) contrast(88%)'
+              }}
             />
             <span 
-              className={cn(
-                "font-heading text-xs tracking-[0.3em] mt-1 transition-all duration-500",
-                isScrolled ? "text-night-green" : "text-pear"
-              )}
+              className="font-heading text-xs tracking-[0.3em] mt-1 transition-all duration-500 font-semibold"
+              style={{ color: '#C9D88D' }}
             >
               DISTRICT
             </span>
@@ -126,7 +122,7 @@ export function Header() {
                   <button
                     onClick={() => handleNavClick(item)}
                     className={cn(
-                      'flex items-center gap-1 text-sm font-nav uppercase tracking-wider transition-all duration-300 relative',
+                      'flex items-center gap-1 text-sm font-heading uppercase tracking-wider transition-all duration-300 relative',
                       'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
                       isScrolled 
                         ? 'text-night-green hover:text-slate-moss before:bg-night-green' 
@@ -145,7 +141,7 @@ export function Header() {
                   <button
                     onClick={() => handleNavClick(item)}
                     className={cn(
-                      'flex items-center gap-1 text-sm font-nav uppercase tracking-wider transition-all duration-300 relative',
+                      'flex items-center gap-1 text-sm font-heading uppercase tracking-wider transition-all duration-300 relative',
                       'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
                       isScrolled 
                         ? 'text-night-green hover:text-slate-moss before:bg-night-green' 
@@ -170,7 +166,7 @@ export function Header() {
                         <button
                           key={child.label}
                           onClick={(e) => handleDropdownItemClick(e, child.href)}
-                          className="block w-full text-left px-5 py-3 text-sm font-nav text-night-green hover:bg-pear/30 hover:text-night-green transition-all duration-200 hover:pl-6"
+                          className="block w-full text-left px-5 py-3 text-sm font-heading text-night-green hover:bg-pear/30 hover:text-night-green transition-all duration-200 hover:pl-6"
                         >
                           {child.label}
                         </button>
@@ -185,7 +181,7 @@ export function Header() {
             <Button
               onClick={handleConsultation}
               className={cn(
-                "font-nav text-xs tracking-wider uppercase transition-all duration-500",
+                "font-heading text-xs tracking-wider uppercase transition-all duration-500",
                 "shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)]",
                 "hover:-translate-y-0.5",
                 isScrolled 
@@ -232,7 +228,7 @@ export function Header() {
                     handleNavClick(item);
                     setIsMobileMenuOpen(false);
                   }}
-                  className="text-2xl font-nav text-night-green hover:text-slate-moss transition-colors uppercase tracking-wider"
+                  className="text-2xl font-heading text-night-green hover:text-slate-moss transition-colors uppercase tracking-wider"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {item.label}
@@ -246,7 +242,7 @@ export function Header() {
                           navigate(child.href);
                           setIsMobileMenuOpen(false);
                         }}
-                        className="block w-full text-sm font-nav text-slate-moss hover:text-night-green transition-colors uppercase tracking-wider"
+                        className="block w-full text-sm font-heading text-slate-moss hover:text-night-green transition-colors uppercase tracking-wider"
                       >
                         {child.label}
                       </button>
@@ -259,7 +255,7 @@ export function Header() {
               variant="default"
               size="lg"
               onClick={handleConsultation}
-              className="mt-6 font-nav"
+              className="mt-6 font-heading"
             >
               REQUEST A CONSULTATION
             </Button>
