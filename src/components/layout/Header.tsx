@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import logoBrandmark from '@/assets/district-brandmark.png';
+import logoBrandmarkNightGreen from '@/assets/district-brandmark-night-green.png';
 import logoLockup from '@/assets/district-logo-lockup.png';
 import logoLockupNightGreen from '@/assets/district-logo-lockup-night-green.png';
 
@@ -100,20 +101,20 @@ export function Header() {
     >
       <div className="container-luxury px-6 md:px-12 lg:px-20">
         <nav className="flex items-center justify-between">
-          {/* Logo - Full lockup at top (night green on non-hero pages), monogram only on scroll */}
+          {/* Logo - Full lockup at top, night-green brandmark when scrolled */}
           <Link to="/" className="relative z-[60] flex flex-col items-center group">
-            {/* Full logo lockup - visible when not scrolled */}
+            {/* Full logo lockup - ivory on hero pages with transparent header, night-green otherwise */}
             <img
-              src={hasHeroSection ? logoLockup : logoLockupNightGreen}
+              src={shouldUseTransparentHeader ? logoLockup : logoLockupNightGreen}
               alt="District Interiors"
               className={cn(
                 "h-16 md:h-20 w-auto transition-all duration-500",
                 isScrolled ? "opacity-0 h-0 absolute" : "opacity-100"
               )}
             />
-            {/* Brandmark only - visible when scrolled */}
+            {/* Brandmark only - night-green when scrolled (always on solid background) */}
             <img
-              src={logoBrandmark}
+              src={logoBrandmarkNightGreen}
               alt="District"
               className={cn(
                 "h-10 md:h-12 w-auto transition-all duration-500",
