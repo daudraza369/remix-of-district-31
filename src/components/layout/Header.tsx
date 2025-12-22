@@ -25,6 +25,7 @@ const navItems = [
     ],
   },
   { label: 'HOSPITALITY', href: '/hospitality' },
+  { label: 'OUR COLLECTION', href: '/collection' },
   { label: 'PROJECTS', href: '/projects' },
 ];
 
@@ -61,16 +62,7 @@ export function Header() {
 
   const handleConsultation = () => {
     setIsMobileMenuOpen(false);
-    const consultationForm = document.getElementById('consultation-form');
-    const contactSection = document.getElementById('contact');
-    
-    if (consultationForm) {
-      consultationForm.scrollIntoView({ behavior: 'smooth' });
-    } else if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      navigate('/contact');
-    }
+    navigate('/contact');
   };
 
   const handleDropdownItemClick = (e: React.MouseEvent, href: string) => {
@@ -123,7 +115,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <div className="hidden lg:flex items-center gap-4 xl:gap-6">
               {navItems.map((item) => (
                 <div
                   key={item.label}
@@ -135,14 +127,15 @@ export function Header() {
                     <button
                       onClick={() => handleNavClick(item)}
                       className={cn(
-                        'flex items-center gap-1 text-sm font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
+                        'flex items-center gap-1 text-[13px] font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
                         'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
                         shouldUseTransparentHeader
-                          ? 'text-ivory hover:text-pear before:bg-pear drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]' 
+                          ? 'text-ivory hover:text-pear before:bg-pear' 
                           : 'text-night-green hover:text-slate-moss before:bg-night-green',
                         activeDropdown === item.label && (shouldUseTransparentHeader ? 'text-pear' : 'text-slate-moss'),
                         'hover:before:scale-x-100 hover:before:origin-left'
                       )}
+                      style={shouldUseTransparentHeader ? { textShadow: '0 2px 4px rgba(0,0,0,0.5)' } : undefined}
                     >
                       {item.label}
                       <ChevronDown className={cn(
@@ -154,13 +147,14 @@ export function Header() {
                     <button
                       onClick={() => handleNavClick(item)}
                       className={cn(
-                        'flex items-center gap-1 text-sm font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
+                        'flex items-center gap-1 text-[13px] font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
                         'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
                         shouldUseTransparentHeader
-                          ? 'text-ivory hover:text-pear before:bg-pear drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]' 
+                          ? 'text-ivory hover:text-pear before:bg-pear' 
                           : 'text-night-green hover:text-slate-moss before:bg-night-green',
                         'hover:before:scale-x-100 hover:before:origin-left'
                       )}
+                      style={shouldUseTransparentHeader ? { textShadow: '0 2px 4px rgba(0,0,0,0.5)' } : undefined}
                     >
                       {item.label}
                     </button>
