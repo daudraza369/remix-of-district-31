@@ -168,23 +168,40 @@ export function Header() {
 
                   {/* Dropdown */}
                   {item.children && activeDropdown === item.label && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 animate-fade-in z-[1500]">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 animate-fade-in z-[1500]">
+                      {/* Dropdown arrow */}
                       <div 
-                        className="rounded-lg py-4 min-w-[220px] border border-stone/20 shadow-2xl"
+                        className="absolute top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-night-green"
+                      />
+                      <div 
+                        className="relative rounded-sm overflow-hidden min-w-[240px]"
                         style={{
-                          background: '#F5F5F0',
-                          boxShadow: '0 20px 50px rgba(0,0,0,0.25), 0 8px 16px rgba(0,0,0,0.15)'
+                          background: 'linear-gradient(180deg, hsl(155 22% 16%) 0%, hsl(155 22% 20%) 100%)',
+                          boxShadow: '0 25px 60px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
                         }}
                       >
-                        {item.children.map((child) => (
-                          <button
-                            key={child.label}
-                            onClick={(e) => handleDropdownItemClick(e, child.href)}
-                            className="block w-full text-center px-6 py-3 text-sm font-nav font-bold uppercase tracking-wider text-night-green hover:text-slate-moss hover:bg-pear/10 transition-all duration-200"
-                          >
-                            {child.label}
-                          </button>
-                        ))}
+                        {/* Decorative top accent line */}
+                        <div className="h-[2px] bg-gradient-to-r from-transparent via-pear to-transparent" />
+                        
+                        <div className="py-3">
+                          {item.children.map((child, index) => (
+                            <button
+                              key={child.label}
+                              onClick={(e) => handleDropdownItemClick(e, child.href)}
+                              className="group relative block w-full text-center px-6 py-3.5 text-sm font-nav font-bold uppercase tracking-wider text-ivory/80 hover:text-pear transition-all duration-300"
+                              style={{ animationDelay: `${index * 40}ms` }}
+                            >
+                              {/* Hover background effect */}
+                              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-pear/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              {/* Left accent bar on hover */}
+                              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-0 bg-pear group-hover:h-6 transition-all duration-300 rounded-r-full" />
+                              <span className="relative">{child.label}</span>
+                            </button>
+                          ))}
+                        </div>
+                        
+                        {/* Decorative bottom accent line */}
+                        <div className="h-[2px] bg-gradient-to-r from-transparent via-slate-moss/50 to-transparent" />
                       </div>
                     </div>
                   )}
