@@ -149,7 +149,7 @@ export function Header() {
                     <button
                       onClick={() => handleNavClick(item)}
                       className={cn(
-                        'flex items-center gap-1 font-nav font-bold uppercase tracking-[0.12em] transition-all duration-300 relative',
+                        'flex items-center gap-1 font-nav font-bold uppercase tracking-[0.12em] transition-all duration-300 relative whitespace-nowrap',
                         'text-[14px] xl:text-[15px] 2xl:text-[16px]',
                         'before:absolute before:-bottom-1 before:left-0 before:w-full before:h-[1.5px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
                         shouldUseTransparentHeader
