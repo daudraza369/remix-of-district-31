@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import logoMonogram from '@/assets/district-logo.png';
+import logoBrandmark from '@/assets/district-brandmark.png';
 import logoLockup from '@/assets/district-logo-lockup.png';
 
 const navItems = [
@@ -102,17 +102,14 @@ export function Header() {
                 isScrolled ? "opacity-0 h-0 absolute" : "opacity-100"
               )}
             />
-            {/* Monogram only - visible when scrolled */}
+            {/* Brandmark only - visible when scrolled */}
             <img
-              src={logoMonogram}
+              src={logoBrandmark}
               alt="District"
               className={cn(
-                "h-10 md:h-12 w-auto transition-all duration-500 brightness-0 saturate-100",
+                "h-10 md:h-12 w-auto transition-all duration-500",
                 isScrolled ? "opacity-100" : "opacity-0 h-0 absolute"
               )}
-              style={{
-                filter: 'invert(85%) sepia(25%) saturate(400%) hue-rotate(35deg) brightness(105%) contrast(85%)'
-              }}
             />
           </Link>
 
