@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils';
 import logo from '@/assets/district-logo.png';
 
 const navItems = [
-  { label: 'DISTRICT', href: '/' },
   { label: 'FLOWERS', href: '/flowers' },
   {
     label: 'INTERIORS',
@@ -98,11 +97,14 @@ export function Header() {
               alt="District"
               className="h-10 md:h-12 w-auto transition-all duration-500 brightness-0 saturate-100"
               style={{
-                filter: 'invert(90%) sepia(24%) saturate(531%) hue-rotate(31deg) brightness(100%) contrast(89%)'
+                filter: 'invert(88%) sepia(18%) saturate(456%) hue-rotate(32deg) brightness(101%) contrast(90%)'
               }}
             />
             <span 
-              className="font-heading text-xs tracking-[0.3em] mt-1 transition-all duration-500 font-semibold"
+              className={cn(
+                "font-heading text-xs tracking-[0.3em] mt-1 font-semibold transition-all duration-500",
+                isScrolled ? "opacity-0 h-0 mt-0 overflow-hidden" : "opacity-100"
+              )}
               style={{ color: '#cddb96' }}
             >
               DISTRICT
