@@ -134,7 +134,7 @@ export function Header() {
                   <button
                     onClick={() => handleNavClick(item)}
                     className={cn(
-                      'flex items-center gap-1 text-sm font-heading uppercase tracking-wider transition-all duration-300 relative',
+                      'flex items-center gap-1 text-sm font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
                       'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
                       shouldUseTransparentHeader
                         ? 'text-ivory/90 hover:text-pear before:bg-pear' 
@@ -153,7 +153,7 @@ export function Header() {
                   <button
                     onClick={() => handleNavClick(item)}
                     className={cn(
-                      'flex items-center gap-1 text-sm font-heading uppercase tracking-wider transition-all duration-300 relative',
+                      'flex items-center gap-1 text-sm font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
                       'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
                       shouldUseTransparentHeader
                         ? 'text-ivory/90 hover:text-pear before:bg-pear' 
