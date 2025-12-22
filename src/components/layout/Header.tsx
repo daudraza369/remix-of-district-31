@@ -101,11 +101,11 @@ export function Header() {
     >
       <div className="container-luxury px-6 md:px-12 lg:px-20">
         <nav className="flex items-center justify-between">
-          {/* Logo - Full night-green lockup at top, night-green brandmark when scrolled */}
+          {/* Logo - Ivory lockup on dark hero backgrounds, night-green elsewhere */}
           <Link to="/" className="relative z-[60] flex flex-col items-center group">
-            {/* Full logo lockup - always night-green */}
+            {/* Full logo lockup - ivory on hero pages for visibility, night-green on light backgrounds */}
             <img
-              src={logoLockupNightGreen}
+              src={shouldUseTransparentHeader ? logoLockup : logoLockupNightGreen}
               alt="District Interiors"
               className={cn(
                 "h-16 md:h-20 w-auto transition-all duration-500",
