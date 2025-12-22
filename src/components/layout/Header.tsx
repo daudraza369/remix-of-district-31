@@ -95,12 +95,12 @@ export function Header() {
         <div className="container-luxury px-6 md:px-12 lg:px-20">
           <nav className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="relative z-[60] flex flex-col items-center group">
+            <Link to="/" className="relative z-[60] flex flex-col items-center group shrink-0">
               <img
                 src={shouldUseTransparentHeader ? logoLockup : logoLockupNightGreen}
                 alt="District Interiors"
                 className={cn(
-                  "h-16 md:h-20 w-auto transition-all duration-500",
+                  "h-20 md:h-24 lg:h-28 xl:h-32 w-auto transition-all duration-500",
                   isScrolled ? "opacity-0 h-0 absolute" : "opacity-100"
                 )}
               />
@@ -108,7 +108,7 @@ export function Header() {
                 src={logoBrandmarkNightGreen}
                 alt="District"
                 className={cn(
-                  "h-10 md:h-12 w-auto transition-all duration-500",
+                  "h-10 md:h-12 lg:h-14 w-auto transition-all duration-500",
                   isScrolled ? "opacity-100" : "opacity-0 h-0 absolute"
                 )}
               />
