@@ -115,7 +115,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-4 xl:gap-6">
+            <div className="hidden lg:flex items-center gap-5 xl:gap-7 2xl:gap-9">
               {navItems.map((item) => (
                 <div
                   key={item.label}
@@ -127,19 +127,20 @@ export function Header() {
                     <button
                       onClick={() => handleNavClick(item)}
                       className={cn(
-                        'flex items-center gap-1 text-[13px] font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
-                        'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
+                        'flex items-center gap-1.5 font-nav font-bold uppercase tracking-[0.12em] transition-all duration-300 relative',
+                        'text-[14px] xl:text-[15px] 2xl:text-[16px]',
+                        'before:absolute before:-bottom-1 before:left-0 before:w-full before:h-[1.5px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
                         shouldUseTransparentHeader
                           ? 'text-ivory hover:text-pear before:bg-pear' 
                           : 'text-night-green hover:text-slate-moss before:bg-night-green',
                         activeDropdown === item.label && (shouldUseTransparentHeader ? 'text-pear' : 'text-slate-moss'),
                         'hover:before:scale-x-100 hover:before:origin-left'
                       )}
-                      style={shouldUseTransparentHeader ? { textShadow: '0 2px 4px rgba(0,0,0,0.5)' } : undefined}
+                      style={shouldUseTransparentHeader ? { textShadow: '0 2px 8px rgba(0,0,0,0.4)' } : undefined}
                     >
                       {item.label}
                       <ChevronDown className={cn(
-                        'w-4 h-4 transition-transform duration-300',
+                        'w-4 h-4 xl:w-[18px] xl:h-[18px] transition-transform duration-300',
                         activeDropdown === item.label && 'rotate-180'
                       )} />
                     </button>
@@ -147,14 +148,15 @@ export function Header() {
                     <button
                       onClick={() => handleNavClick(item)}
                       className={cn(
-                        'flex items-center gap-1 text-[13px] font-nav font-bold uppercase tracking-wider transition-all duration-300 relative',
-                        'before:absolute before:bottom-0 before:left-0 before:w-full before:h-[1px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
+                        'flex items-center gap-1 font-nav font-bold uppercase tracking-[0.12em] transition-all duration-300 relative',
+                        'text-[14px] xl:text-[15px] 2xl:text-[16px]',
+                        'before:absolute before:-bottom-1 before:left-0 before:w-full before:h-[1.5px] before:origin-right before:scale-x-0 before:transition-transform before:duration-300',
                         shouldUseTransparentHeader
                           ? 'text-ivory hover:text-pear before:bg-pear' 
                           : 'text-night-green hover:text-slate-moss before:bg-night-green',
                         'hover:before:scale-x-100 hover:before:origin-left'
                       )}
-                      style={shouldUseTransparentHeader ? { textShadow: '0 2px 4px rgba(0,0,0,0.5)' } : undefined}
+                      style={shouldUseTransparentHeader ? { textShadow: '0 2px 8px rgba(0,0,0,0.4)' } : undefined}
                     >
                       {item.label}
                     </button>
