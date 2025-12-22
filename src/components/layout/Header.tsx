@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import logoBrandmark from '@/assets/district-brandmark.png';
@@ -238,64 +239,180 @@ export function Header() {
         </div>
       </header>
 
-      {/* Mobile Menu - Rendered as sibling, not child of header */}
-      {isMobileMenuOpen && (
-        <div 
-          className="fixed inset-0 z-[9999] lg:hidden"
-          style={{ background: '#F8F8F5' }}
-        >
-          {/* Close Button - Fixed position at top right */}
-          <button
-            className="absolute top-6 right-6 p-2 z-[10000]"
-            onClick={() => setIsMobileMenuOpen(false)}
-            aria-label="Close menu"
+      {/* Mobile Menu - Elite Off-Canvas Experience */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-[9999] lg:hidden overflow-hidden"
           >
-            <X className="w-8 h-8 text-night-green" />
-          </button>
+            {/* Elegant gradient background */}
+            <motion.div 
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 1.1 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0"
+              style={{ 
+                background: 'linear-gradient(160deg, hsl(60 30% 97%) 0%, hsl(60 10% 94%) 50%, hsl(155 15% 92%) 100%)'
+              }}
+            />
 
-          {/* Menu Content */}
-          <div className="flex flex-col items-center justify-center min-h-full gap-6 py-24 px-6">
-            {navItems.map((item, index) => (
-              <div key={item.label} className="text-center">
-                <button
-                  onClick={() => {
-                    handleNavClick(item);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="text-2xl font-heading text-night-green hover:text-slate-moss transition-colors uppercase tracking-wider"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  {item.label}
-                </button>
-                {item.children && (
-                  <div className="mt-4 space-y-3">
-                    {item.children.map((child) => (
-                      <button
-                        key={child.label}
-                        onClick={() => {
-                          navigate(child.href);
-                          setIsMobileMenuOpen(false);
-                        }}
-                        className="block w-full text-base font-heading text-slate-moss hover:text-night-green transition-colors uppercase tracking-wider"
-                      >
-                        {child.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            <Button
-              variant="default"
-              size="lg"
-              onClick={handleConsultation}
-              className="mt-8 font-heading bg-night-green text-ivory hover:bg-slate-moss"
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-[60%] h-[40%] opacity-[0.03]"
+              style={{
+                background: 'radial-gradient(ellipse at top right, hsl(155 22% 20%) 0%, transparent 70%)'
+              }}
+            />
+            <div className="absolute bottom-0 left-0 w-[50%] h-[30%] opacity-[0.02]"
+              style={{
+                background: 'radial-gradient(ellipse at bottom left, hsl(72 68% 72%) 0%, transparent 70%)'
+              }}
+            />
+
+            {/* Subtle vertical line accent */}
+            <motion.div 
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute left-8 top-32 bottom-32 w-[1px] origin-top"
+              style={{ background: 'linear-gradient(180deg, transparent 0%, hsl(155 22% 20% / 0.15) 20%, hsl(155 22% 20% / 0.15) 80%, transparent 100%)' }}
+            />
+
+            {/* Close Button */}
+            <motion.button
+              initial={{ opacity: 0, rotate: -90 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: 90 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="absolute top-8 right-8 p-3 z-[10000] group"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close menu"
             >
-              REQUEST A CONSULTATION
-            </Button>
-          </div>
-        </div>
-      )}
+              <div className="relative">
+                <div className="absolute inset-0 rounded-full bg-night-green/5 scale-0 group-hover:scale-150 transition-transform duration-500" />
+                <X className="w-7 h-7 text-night-green relative z-10 transition-transform duration-300 group-hover:rotate-90" />
+              </div>
+            </motion.button>
+
+            {/* Logo */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="absolute top-8 left-8"
+            >
+              <img 
+                src={logoBrandmarkNightGreen} 
+                alt="District" 
+                className="h-12 w-auto"
+              />
+            </motion.div>
+
+            {/* Menu Content */}
+            <div className="relative flex flex-col items-start justify-center min-h-full pl-16 pr-8 py-28">
+              <nav className="space-y-1">
+                {navItems.map((item, index) => (
+                  <motion.div 
+                    key={item.label}
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ 
+                      duration: 0.5, 
+                      delay: 0.2 + index * 0.08,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                    className="overflow-hidden"
+                  >
+                    <button
+                      onClick={() => {
+                        handleNavClick(item);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="group flex items-center gap-4 py-3 text-left"
+                    >
+                      {/* Animated line accent */}
+                      <span className="w-0 h-[2px] bg-pear group-hover:w-8 transition-all duration-500 ease-out" />
+                      
+                      <span className="text-2xl sm:text-3xl font-heading text-night-green tracking-wide uppercase transition-all duration-300 group-hover:text-slate-moss group-hover:translate-x-2">
+                        {item.label}
+                      </span>
+                      
+                      <ArrowRight className="w-5 h-5 text-pear opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                    </button>
+
+                    {/* Submenu items with elegant reveal */}
+                    {item.children && (
+                      <motion.div 
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        transition={{ duration: 0.4, delay: 0.3 + index * 0.08 }}
+                        className="ml-12 space-y-0.5 pb-2"
+                      >
+                        {item.children.map((child, childIndex) => (
+                          <motion.button
+                            key={child.label}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ 
+                              duration: 0.4, 
+                              delay: 0.35 + index * 0.08 + childIndex * 0.05 
+                            }}
+                            onClick={() => {
+                              navigate(child.href);
+                              setIsMobileMenuOpen(false);
+                            }}
+                            className="group/sub flex items-center gap-3 py-2 text-left w-full"
+                          >
+                            <span className="w-3 h-[1px] bg-slate-moss/40 group-hover/sub:w-6 group-hover/sub:bg-pear transition-all duration-300" />
+                            <span className="text-sm sm:text-base font-nav text-slate-moss uppercase tracking-widest transition-all duration-300 group-hover/sub:text-night-green group-hover/sub:tracking-[0.2em]">
+                              {child.label}
+                            </span>
+                          </motion.button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </motion.div>
+                ))}
+              </nav>
+
+              {/* CTA Button with elegant entrance */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-12"
+              >
+                <Button
+                  variant="default"
+                  size="lg"
+                  onClick={handleConsultation}
+                  className="relative overflow-hidden group font-heading text-sm tracking-widest uppercase bg-night-green text-ivory hover:bg-night-green px-8 py-6"
+                >
+                  <span className="absolute inset-0 bg-gradient-to-r from-pear/20 via-pear/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                  <span className="relative flex items-center gap-3">
+                    REQUEST A CONSULTATION
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                  </span>
+                </Button>
+              </motion.div>
+
+              {/* Decorative footer text */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                className="absolute bottom-8 left-16 text-[11px] font-nav uppercase tracking-[0.3em] text-slate-moss/50"
+              >
+                Crafting Green Spaces
+              </motion.p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
