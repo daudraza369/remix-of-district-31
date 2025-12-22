@@ -167,30 +167,21 @@ export function Header() {
                   </button>
                 )}
 
-                {/* Dropdown - Solid Glass Card Style for readability */}
+                {/* Dropdown - Solid opaque card for readability */}
                 {item.children && activeDropdown === item.label && (
-                  <div className="absolute top-full left-0 pt-3 animate-fade-in z-[1500]">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 animate-fade-in z-[1500]">
                     <div 
-                      className="rounded-md py-3 min-w-[240px] border border-ivory/40 backdrop-blur-2xl"
+                      className="rounded-lg py-4 min-w-[220px] border border-stone/20 shadow-2xl"
                       style={{
-                        background: 'linear-gradient(145deg, hsla(60, 3%, 78%, 0.92) 0%, hsla(60, 30%, 96%, 0.88) 100%)',
-                        boxShadow: '0 12px 40px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.3)'
+                        background: '#F5F5F0',
+                        boxShadow: '0 20px 50px rgba(0,0,0,0.25), 0 8px 16px rgba(0,0,0,0.15)'
                       }}
                     >
                       {item.children.map((child) => (
                         <button
                           key={child.label}
                           onClick={(e) => handleDropdownItemClick(e, child.href)}
-                          className="block w-full text-left px-5 py-3 text-sm font-heading text-night-green hover:text-night-green transition-all duration-200 hover:pl-6 relative before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-0 before:h-[2px] before:bg-pear before:transition-all before:duration-200 hover:before:w-3 hover:before:ml-2"
-                          style={{ 
-                            background: 'transparent',
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background = 'linear-gradient(90deg, hsla(72, 46%, 83%, 0.4) 0%, transparent 100%)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background = 'transparent';
-                          }}
+                          className="block w-full text-center px-6 py-3 text-sm font-nav font-bold uppercase tracking-wider text-night-green hover:text-slate-moss hover:bg-pear/10 transition-all duration-200"
                         >
                           {child.label}
                         </button>
