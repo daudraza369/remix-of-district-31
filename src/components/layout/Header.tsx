@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logoBrandmark from "@/assets/district-brandmark.png";
 import logoBrandmarkNightGreen from "@/assets/district-brandmark-night-green.png";
+import logoBrandmarkPear from "@/assets/district-brandmark-pear.png";
 import logoLockup from "@/assets/district-logo-lockup.png";
 import logoLockupNightGreen from "@/assets/district-logo-lockup-night-green.png";
 
@@ -25,6 +26,7 @@ const navItems = [
       { label: "GREEN WALLS", href: "/services/green-walls" },
     ],
   },
+  { label: "STYLING", href: "/styling" },
   { label: "HOSPITALITY", href: "/hospitality" },
   { label: "COLLECTION", href: "/collection" },
   { label: "PROJECTS", href: "/projects" },
@@ -98,20 +100,22 @@ export function Header() {
           <nav className="flex items-center justify-between">
             {/* Logo */}
             <Link to="/" className="relative z-[60] flex flex-col items-center group shrink-0 mr-6 xl:mr-10">
+              {/* Transparent header: show pear brandmark */}
               <img
-                src={shouldUseTransparentHeader ? logoLockup : logoLockupNightGreen}
+                src={logoBrandmarkPear}
                 alt="District Interiors"
                 className={cn(
-                  "h-16 md:h-18 lg:h-20 xl:h-22 w-auto transition-all duration-500",
-                  isScrolled ? "opacity-0 h-0 absolute" : "opacity-100",
+                  "h-12 md:h-14 lg:h-16 w-auto transition-all duration-500",
+                  shouldUseTransparentHeader && !isScrolled ? "opacity-100" : "opacity-0 h-0 absolute",
                 )}
               />
+              {/* Scrolled/sticky header: show night-green lockup */}
               <img
-                src={logoBrandmarkNightGreen}
-                alt="District"
+                src={logoLockupNightGreen}
+                alt="District Interiors"
                 className={cn(
                   "h-10 md:h-11 lg:h-12 w-auto transition-all duration-500",
-                  isScrolled ? "opacity-100" : "opacity-0 h-0 absolute",
+                  !shouldUseTransparentHeader || isScrolled ? "opacity-100" : "opacity-0 h-0 absolute",
                 )}
               />
             </Link>
