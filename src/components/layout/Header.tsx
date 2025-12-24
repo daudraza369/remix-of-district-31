@@ -14,6 +14,7 @@ import logoLockupNightGreen from "@/assets/district-logo-lockup-night-green.png"
 const HERO_PAGES = ["/", "/flowers", "/hospitality", "/projects", "/tree-solutions"];
 
 const navItems = [
+  { label: "DISTRICT", href: "/" },
   { label: "FLOWERS", href: "/flowers" },
   {
     label: "Greenery",
@@ -109,10 +110,10 @@ export function Header() {
                   shouldUseTransparentHeader && !isScrolled ? "opacity-100" : "opacity-0 h-0 absolute",
                 )}
               />
-              {/* Scrolled/sticky header: show night-green lockup */}
+              {/* Scrolled/sticky header: show night-green brandmark */}
               <img
-                src={logoLockupNightGreen}
-                alt="District Interiors"
+                src={logoBrandmarkNightGreen}
+                alt="District"
                 className={cn(
                   "h-10 md:h-11 lg:h-12 w-auto transition-all duration-500",
                   !shouldUseTransparentHeader || isScrolled ? "opacity-100" : "opacity-0 h-0 absolute",
