@@ -168,9 +168,9 @@ export function Header() {
 
                   {/* Dropdown */}
                   {item.children && activeDropdown === item.label && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 animate-fade-in z-[1500]">
-                      {/* Dropdown arrow */}
-                      <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-night-green" />
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 animate-fade-in z-[1500]">
+                      {/* Elegant gradient connector */}
+                      <div className="absolute top-1 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-gradient-to-r from-transparent via-pear/60 to-transparent" />
                       <div
                         className="relative rounded-sm overflow-hidden min-w-[240px]"
                         style={{
