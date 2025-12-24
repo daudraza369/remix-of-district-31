@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Pencil, Trash2, Eye, EyeOff, ExternalLink, GripVertical } from 'lucide-react';
+import { Plus, Pencil, Trash2, Eye, EyeOff, ExternalLink, Upload, Loader2, Info } from 'lucide-react';
 
 interface ClientLogo {
   id: string;
@@ -24,6 +24,8 @@ export default function ClientsAdmin() {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingClient, setEditingClient] = useState<ClientLogo | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   const [form, setForm] = useState({
@@ -73,6 +75,53 @@ export default function ClientsAdmin() {
       });
     }
     setDialogOpen(true);
+  }
+
+  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({ title: 'Invalid file', description: 'Please upload an image file', variant: 'destructive' });
+      return;
+    }
+
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      toast({ title: 'File too large', description: 'Please upload an image under 2MB', variant: 'destructive' });
+      return;
+    }
+
+    setUploading(true);
+
+    try {
+      // Generate unique filename
+      const fileExt = file.name.split('.').pop();
+      const fileName = `client-logos/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+
+      // Upload to Supabase storage
+      const { error: uploadError } = await supabase.storage
+        .from('media')
+        .upload(fileName, file);
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('media')
+        .getPublicUrl(fileName);
+
+      setForm({ ...form, logo_url: publicUrl });
+      toast({ title: 'Logo uploaded successfully' });
+    } catch (error: any) {
+      toast({ title: 'Upload failed', description: error.message, variant: 'destructive' });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -150,7 +199,7 @@ export default function ClientsAdmin() {
                 Add Client
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="max-w-md">
               <DialogHeader>
                 <DialogTitle>{editingClient ? 'Edit Client' : 'Add New Client'}</DialogTitle>
               </DialogHeader>
@@ -164,8 +213,68 @@ export default function ClientsAdmin() {
                     required
                   />
                 </div>
+
+                {/* Logo Upload Section */}
                 <div className="space-y-2">
-                  <Label htmlFor="logo_url">Logo URL *</Label>
+                  <Label>Client Logo *</Label>
+                  
+                  {/* Dimension Guidelines */}
+                  <div className="bg-muted/50 rounded-lg p-3 text-xs space-y-1">
+                    <div className="flex items-center gap-1.5 text-muted-foreground font-medium">
+                      <Info className="h-3.5 w-3.5" />
+                      Logo Guidelines for Infinite Slider
+                    </div>
+                    <ul className="text-muted-foreground space-y-0.5 ml-5 list-disc">
+                      <li>Recommended size: <strong>200×80 pixels</strong> (or similar 2.5:1 ratio)</li>
+                      <li>Format: PNG with transparent background preferred</li>
+                      <li>Max file size: 2MB</li>
+                      <li>Logos will be displayed at ~96px width in the slider</li>
+                    </ul>
+                  </div>
+
+                  {/* Upload Button */}
+                  <div className="flex gap-2">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                      id="logo-upload"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploading}
+                      className="flex-1"
+                    >
+                      {uploading ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          Uploading...
+                        </>
+                      ) : (
+                        <>
+                          <Upload className="h-4 w-4 mr-2" />
+                          Upload Logo
+                        </>
+                      )}
+                    </Button>
+                  </div>
+
+                  {/* Preview or URL input */}
+                  {form.logo_url && (
+                    <div className="mt-2 p-3 bg-muted rounded-lg">
+                      <img
+                        src={form.logo_url}
+                        alt="Logo preview"
+                        className="max-h-16 max-w-full object-contain mx-auto"
+                      />
+                    </div>
+                  )}
+                  
+                  <div className="text-xs text-muted-foreground">Or paste a URL:</div>
                   <Input
                     id="logo_url"
                     value={form.logo_url}
@@ -174,6 +283,7 @@ export default function ClientsAdmin() {
                     required
                   />
                 </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="website_url">Website URL</Label>
                   <Input
