@@ -8,10 +8,10 @@ const Hospitality = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-ivory">
+    <div className="min-h-screen bg-gradient-to-br from-night-green via-slate-moss to-night-green">
       <Header />
       <main className="pt-20">
-        <section className="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-night-green via-slate-moss to-night-green">
+        <section className="min-h-[80vh] flex items-center justify-center">
           <div className="container-luxury px-6 md:px-12 lg:px-20 text-center">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
