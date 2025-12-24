@@ -36,54 +36,53 @@ const projects = [
 ];
 
 export function PortfolioSection() {
-  const { ref, isVisible } = useScrollAnimation<HTMLElement>();
+  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>();
 
   return (
-    <section id="portfolio" ref={ref} className="section-padding bg-gradient-to-b from-ivory to-pear/20">
-      <div className="container-luxury">
+    <section id="portfolio" className="relative py-28 md:py-36 lg:py-44 overflow-hidden gradient-section-light">
+      <div ref={ref} className="container-luxury px-6 md:px-12 lg:px-20">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 60, filter: 'blur(10px)' }}
+          animate={isVisible ? { opacity: 1, y: 0, filter: 'blur(0)' } : {}}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
-          <h2 className="text-night-green mb-4 uppercase font-heading">GLIMPSE INTO OUR WORLD</h2>
-          <p className="text-body-large text-slate-moss max-w-2xl mx-auto">
-            A showcase of curated interiors and custom installations.
+          <h2 className="text-night-green mb-6 uppercase font-heading">
+            <span className="block text-3xl md:text-4xl lg:text-5xl">Transformations</span>
+            <span className="block text-gradient text-4xl md:text-5xl lg:text-6xl">In Action</span>
+          </h2>
+          <p className="text-xl text-slate-moss max-w-2xl mx-auto">
+            A showcase of spaces we've brought to life across the region.
           </p>
         </motion.div>
 
-        {/* Portfolio Grid - consistent card sizes for video covers (9:16 aspect ratio) */}
+        {/* Portfolio Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
-              animate={isVisible ? { opacity: 1, y: 0, scale: 1 } : {}}
+              initial={{ opacity: 0, y: 80, filter: 'blur(10px)' }}
+              animate={isVisible ? { opacity: 1, y: 0, filter: 'blur(0)' } : {}}
               transition={{
-                duration: 0.6,
-                delay: index * 0.1,
+                duration: 0.8,
+                delay: 0.1 + index * 0.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
               <Link
                 to="/projects"
-                className="group block relative rounded-sm overflow-hidden"
+                className="group block relative rounded-sm overflow-hidden card-cinematic"
               >
-                {/* 9:16 aspect ratio for vertical video covers */}
                 <div className="aspect-[9/16]">
-                  {/* Image */}
                   <img 
                     src={project.image} 
                     alt={project.title}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
 
-                  {/* Gradient Overlay - always visible */}
                   <div className="absolute inset-0 bg-gradient-to-t from-night-green/90 via-night-green/30 to-transparent" />
 
-                  {/* Content - positioned at bottom */}
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <span className="inline-block px-3 py-1 bg-pear/90 text-night-green text-xs uppercase tracking-wider font-nav rounded-sm mb-3">
                       {project.category}
@@ -100,6 +99,22 @@ export function PortfolioSection() {
             </motion.div>
           ))}
         </div>
+
+        {/* View All Link */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="text-center mt-12"
+        >
+          <Link 
+            to="/projects" 
+            className="inline-flex items-center gap-2 text-night-green font-nav uppercase tracking-wider hover:text-slate-moss transition-colors group"
+          >
+            View All Projects
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
