@@ -54,14 +54,14 @@ export function ClientLogosSection() {
             <img
               src={client.logo_url}
               alt={client.client_name}
-              className="max-w-full max-h-10 md:max-h-12 object-contain opacity-50 group-hover:opacity-100 transition-opacity duration-300"
+              className="max-w-full max-h-10 md:max-h-12 object-contain opacity-70 grayscale brightness-0 group-hover:grayscale-0 group-hover:brightness-100 group-hover:opacity-100 transition-all duration-300"
             />
           </a>
         ) : (
           <img
             src={client.logo_url}
             alt={client.client_name}
-            className="max-w-full max-h-10 md:max-h-12 object-contain opacity-50 group-hover:opacity-100 transition-opacity duration-300"
+            className="max-w-full max-h-10 md:max-h-12 object-contain opacity-70 grayscale brightness-0 group-hover:grayscale-0 group-hover:brightness-100 group-hover:opacity-100 transition-all duration-300"
           />
         )}
       </div>
