@@ -178,6 +178,7 @@ export type Database = {
           slug: string
           title: string
           updated_at: string
+          video_url: string | null
         }
         Insert: {
           client_name?: string | null
@@ -195,6 +196,7 @@ export type Database = {
           slug: string
           title: string
           updated_at?: string
+          video_url?: string | null
         }
         Update: {
           client_name?: string | null
@@ -212,6 +214,7 @@ export type Database = {
           slug?: string
           title?: string
           updated_at?: string
+          video_url?: string | null
         }
         Relationships: []
       }

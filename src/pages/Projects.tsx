@@ -2,8 +2,11 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Play } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+
+// Fallback images for static demo projects
 import heroImage from '@/assets/hero-interior.jpg';
 import hotelAtrium from '@/assets/hotel-atrium.jpg';
 import restaurantPlants from '@/assets/restaurant-plants.jpg';
@@ -13,62 +16,80 @@ import planters from '@/assets/planters.jpg';
 
 const projectCategories = ["All", "Office", "Hospitality", "F&B", "Villa"];
 
-const projects = [
+// Static fallback projects (used when DB is empty)
+const fallbackProjects = [
   {
-    id: 1,
+    id: 'static-1',
     title: "Corporate HQ Transformation",
-    category: "Office",
+    project_type: "Office",
     location: "Riyadh, KSA",
     description: "Complete interior plantscaping with custom planters and green walls",
-    image: heroImage,
-    isVideo: true
+    hero_image: heroImage,
+    video_url: null,
+    display_order: 0,
   },
   {
-    id: 2,
+    id: 'static-2',
     title: "Five-Star Hotel Atrium",
-    category: "Hospitality",
+    project_type: "Hospitality",
     location: "Jeddah, KSA",
     description: "Grand atrium featuring 8-meter olive trees and cascading greenery",
-    image: hotelAtrium,
-    isVideo: true
+    hero_image: hotelAtrium,
+    video_url: null,
+    display_order: 1,
   },
   {
-    id: 3,
+    id: 'static-3',
     title: "Fine Dining Restaurant",
-    category: "F&B",
+    project_type: "F&B",
     location: "Dubai, UAE",
     description: "Intimate botanical atmosphere with preserved plants and moss features",
-    image: restaurantPlants,
-    isVideo: false
+    hero_image: restaurantPlants,
+    video_url: null,
+    display_order: 2,
   },
   {
-    id: 4,
+    id: 'static-4',
     title: "Private Villa Garden",
-    category: "Villa",
+    project_type: "Villa",
     location: "Al Khobar, KSA",
     description: "Custom olive grove with integrated irrigation system",
-    image: oliveTree,
-    isVideo: true
+    hero_image: oliveTree,
+    video_url: null,
+    display_order: 3,
   },
   {
-    id: 5,
+    id: 'static-5',
     title: "Tech Campus Renovation",
-    category: "Office",
+    project_type: "Office",
     location: "Riyadh, KSA",
     description: "Biophilic design throughout with custom planter solutions",
-    image: planters,
-    isVideo: false
+    hero_image: planters,
+    video_url: null,
+    display_order: 4,
   },
   {
-    id: 6,
+    id: 'static-6',
     title: "Boutique Hotel Lobby",
-    category: "Hospitality",
+    project_type: "Hospitality",
     location: "Riyadh, KSA",
     description: "Sculptural green installations with ambient lighting",
-    image: greenWall,
-    isVideo: true
+    hero_image: greenWall,
+    video_url: null,
+    display_order: 5,
   },
 ];
+
+interface Project {
+  id: string;
+  title: string;
+  project_type: string | null;
+  location: string | null;
+  description: string | null;
+  hero_image: string | null;
+  video_url: string | null;
+  display_order: number;
+}
 
 // Interactive project card with magnetic hover effect
 const ProjectCard = ({ 
@@ -76,11 +97,12 @@ const ProjectCard = ({
   index, 
   isVisible 
 }: { 
-  project: typeof projects[0]; 
+  project: Project; 
   index: number; 
   isVisible: boolean;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
@@ -95,6 +117,17 @@ const ProjectCard = ({
   const handleMouseLeave = () => {
     setMousePosition({ x: 0, y: 0 });
     setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
   };
 
   // Staggered layout - alternating sizes for visual interest
@@ -109,6 +142,8 @@ const ProjectCard = ({
 
   const layoutClass = layoutVariants[index % layoutVariants.length];
   const isTall = layoutClass.includes('row-span-2');
+  const hasVideo = !!project.video_url;
+  const mediaSource = project.video_url || project.hero_image;
 
   return (
     <motion.div
@@ -129,7 +164,7 @@ const ProjectCard = ({
         transition: { duration: 0.3 }
       }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={`${layoutClass} group cursor-pointer perspective-1000`}
       style={{
@@ -138,7 +173,7 @@ const ProjectCard = ({
       }}
     >
       <div className={`relative overflow-hidden rounded-sm h-full ${isTall ? 'min-h-[500px] md:min-h-[600px]' : 'min-h-[280px] md:min-h-[320px]'}`}>
-        {/* Image with parallax effect */}
+        {/* Media with parallax effect */}
         <motion.div 
           className="absolute inset-0"
           animate={{
@@ -146,11 +181,23 @@ const ProjectCard = ({
           }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
+          {hasVideo ? (
+            <video
+              ref={videoRef}
+              src={project.video_url!}
+              className="w-full h-full object-cover"
+              muted
+              loop
+              playsInline
+              poster={project.hero_image || undefined}
+            />
+          ) : (
+            <img
+              src={mediaSource || heroImage}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+          )}
         </motion.div>
 
         {/* Color overlay on hover - transitions from grayscale to vibrant */}
@@ -190,7 +237,7 @@ const ProjectCard = ({
         />
 
         {/* Video play indicator */}
-        {project.isVideo && (
+        {hasVideo && (
           <motion.div 
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             initial={{ scale: 0.8, opacity: 0 }}
@@ -233,7 +280,7 @@ const ProjectCard = ({
             }}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
-            {project.category}
+            {project.project_type || 'Project'}
           </motion.span>
 
           {/* Title with slide-up effect */}
@@ -285,7 +332,33 @@ const Projects = () => {
   const heroRef = useScrollAnimation<HTMLElement>();
   const gridRef = useScrollAnimation<HTMLElement>();
   const [activeCategory, setActiveCategory] = useState("All");
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Fetch projects from database
+  useEffect(() => {
+    async function fetchProjects() {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('id, title, project_type, location, description, hero_image, video_url, display_order')
+        .eq('is_published', true)
+        .order('display_order', { ascending: true });
+      
+      if (error) {
+        console.error('Error fetching projects:', error);
+        setProjects(fallbackProjects);
+      } else if (data && data.length > 0) {
+        setProjects(data);
+      } else {
+        // Use fallback projects if no published projects
+        setProjects(fallbackProjects);
+      }
+      setLoading(false);
+    }
+    
+    fetchProjects();
+  }, []);
   
   // Smooth scroll progress for parallax effects
   const { scrollYProgress } = useScroll({
@@ -298,7 +371,7 @@ const Projects = () => {
 
   const filteredProjects = activeCategory === "All"
     ? projects
-    : projects.filter(p => p.category === activeCategory);
+    : projects.filter(p => p.project_type === activeCategory);
 
   return (
     <div className="min-h-screen bg-ivory">
@@ -390,30 +463,43 @@ const Projects = () => {
               ))}
             </motion.div>
 
-            {/* Artistic Masonry Grid for portrait videos */}
-            <motion.div 
-              layout
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[minmax(140px,1fr)]"
-            >
-              {filteredProjects.map((project, index) => (
-                <ProjectCard 
-                  key={project.id} 
-                  project={project} 
-                  index={index}
-                  isVisible={gridRef.isVisible}
+            {/* Loading state */}
+            {loading ? (
+              <div className="text-center py-20">
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  className="w-8 h-8 border-2 border-night-green border-t-transparent rounded-full mx-auto"
                 />
-              ))}
-            </motion.div>
+              </div>
+            ) : (
+              <>
+                {/* Artistic Masonry Grid for portrait videos */}
+                <motion.div 
+                  layout
+                  className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[minmax(140px,1fr)]"
+                >
+                  {filteredProjects.map((project, index) => (
+                    <ProjectCard 
+                      key={project.id} 
+                      project={project} 
+                      index={index}
+                      isVisible={gridRef.isVisible}
+                    />
+                  ))}
+                </motion.div>
 
-            {/* Empty state */}
-            {filteredProjects.length === 0 && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-20"
-              >
-                <p className="text-slate-moss text-lg">No projects found in this category.</p>
-              </motion.div>
+                {/* Empty state */}
+                {filteredProjects.length === 0 && (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center py-20"
+                  >
+                    <p className="text-slate-moss text-lg">No projects found in this category.</p>
+                  </motion.div>
+                )}
+              </>
             )}
           </div>
         </section>
