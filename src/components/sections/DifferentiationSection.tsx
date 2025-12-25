@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Check, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const comparisons = [
   {
@@ -136,7 +137,10 @@ export function DifferentiationSection() {
           className="text-center mt-12"
         >
           <p className="text-stone/60 text-sm">
-            Ready to experience the difference? <span className="text-pear underline-reveal cursor-pointer">Let's talk →</span>
+            Ready to experience the difference?{' '}
+            <Link to="/contact" className="text-pear underline-reveal cursor-pointer hover:opacity-80 transition-opacity">
+              Let's talk →
+            </Link>
           </p>
         </motion.div>
       </div>
