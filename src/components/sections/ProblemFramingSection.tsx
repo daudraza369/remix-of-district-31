@@ -1,26 +1,50 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { AlertTriangle, TrendingDown, Users, Building2 } from 'lucide-react';
+import { AlertTriangle, Brain, TrendingDown, Users } from 'lucide-react';
 
 const problems = [
   {
+    icon: Brain,
+    stat: '61%',
+    label: 'Lower Cognitive Scores',
+    description: 'Harvard researchers found that employees in conventional offices scored 61% lower on cognitive tests than those in green, enhanced environments.',
+    source: 'Harvard T.H. Chan School of Public Health',
+    category: 'Brainpower is Stifled',
+  },
+  {
     icon: TrendingDown,
-    stat: '67%',
-    label: 'report lower productivity',
-    description: 'in sterile, plant-free environments',
+    stat: '15%',
+    label: 'Productivity Gap',
+    description: '"Lean" minimalist offices do not help focus. Adding plants alone has been proven to boost productivity by 15%.',
+    source: 'University of Exeter',
+    category: 'Output is Lost',
   },
   {
     icon: Users,
-    stat: '23%',
-    label: 'higher turnover',
-    description: 'in offices lacking natural elements',
+    stat: '15%',
+    label: 'Lower Well-being',
+    description: 'Employees in spaces without natural elements report 15% lower well-being and higher anxiety levels, driving hidden turnover costs.',
+    source: 'Human Spaces Global Report',
+    category: 'Talent Burns Out',
+  },
+];
+
+const quotes = [
+  {
+    text: "It is a misconception that a 'clean' desk equals a focused mind. We found that simply enriching a sterile space with plants increased productivity by 15%.",
+    author: 'Dr. Chris Knight',
+    title: 'University of Exeter',
   },
   {
-    icon: Building2,
-    stat: '$2.8M',
-    label: 'annual productivity loss',
-    description: 'for mid-size companies with poor air quality',
+    text: "We have exiled nature from our daily lives, and it is costing us our health and happiness. The absence of nature is not a neutral condition. It is a deprivation.",
+    author: 'Stephen R. Kellert',
+    title: 'Pioneer of Biophilic Design, Yale Professor',
+  },
+  {
+    text: "No one creates their best work in a beige box. If you want your team to thrive, you have to build a habitat, not just an office.",
+    author: 'Biophilic Design Principles',
+    title: '',
   },
 ];
 
@@ -82,18 +106,18 @@ export function ProblemFramingSection() {
           </div>
           
           <h2 className="text-ivory mb-6 uppercase font-heading leading-tight">
-            <span className="block text-3xl md:text-4xl lg:text-5xl mb-2">Your Space Is</span>
-            <span className="text-shimmer text-4xl md:text-5xl lg:text-6xl">Costing You</span>
+            <span className="block text-3xl md:text-4xl lg:text-5xl mb-2">The Hidden Cost of</span>
+            <span className="text-shimmer text-4xl md:text-5xl lg:text-6xl">Sterile Spaces</span>
           </h2>
           
           <p className="text-xl md:text-2xl text-stone/80 leading-relaxed max-w-3xl mx-auto">
-            Bland interiors don't just look uninspiring. They actively drain productivity, 
-            increase turnover, and diminish your brand's perceived value.
+            Bland interiors are not neutral. They are actively suppressing your team's performance. 
+            Science confirms the difference.
           </p>
         </motion.div>
 
         {/* Problem stats grid */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {problems.map((problem, index) => (
             <motion.div
               key={problem.label}
@@ -106,7 +130,7 @@ export function ProblemFramingSection() {
               }}
               className="group relative"
             >
-              <div className="relative p-8 rounded-sm bg-night-green/50 backdrop-blur-sm border border-ivory/5 hover:border-pear/30 transition-all duration-500">
+              <div className="relative p-8 rounded-sm bg-night-green/50 backdrop-blur-sm border border-ivory/5 hover:border-pear/30 transition-all duration-500 h-full flex flex-col">
                 {/* Hover glow */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-sm">
                   <div 
@@ -117,7 +141,12 @@ export function ProblemFramingSection() {
                   />
                 </div>
 
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col h-full">
+                  {/* Category badge */}
+                  <span className="text-xs text-pear/70 uppercase tracking-widest font-nav mb-4">
+                    {problem.category}
+                  </span>
+                  
                   <div className="w-12 h-12 rounded-full bg-pear/10 flex items-center justify-center mb-6 group-hover:bg-pear/20 transition-colors duration-300">
                     <problem.icon className="w-6 h-6 text-pear" />
                   </div>
@@ -126,29 +155,58 @@ export function ProblemFramingSection() {
                     {problem.stat}
                   </div>
                   
-                  <p className="text-lg text-pear font-nav uppercase tracking-wide mb-2">
+                  <p className="text-lg text-pear font-nav uppercase tracking-wide mb-3">
                     {problem.label}
                   </p>
                   
-                  <p className="text-stone/70 text-sm leading-relaxed">
+                  <p className="text-stone/70 text-sm leading-relaxed flex-grow mb-4">
                     {problem.description}
                   </p>
+                  
+                  {/* Source citation */}
+                  <div className="pt-4 border-t border-ivory/10">
+                    <p className="text-xs text-stone/50 italic">
+                      Source: {problem.source}
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Transition statement */}
+        {/* Quotes section */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-center mt-20"
+          className="mt-24 max-w-4xl mx-auto"
         >
-          <p className="text-xl text-stone/60 italic">
-            "The absence of nature in a space isn't neutral. It's negative."
-          </p>
+          <div className="space-y-12">
+            {quotes.map((quote, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                animate={isVisible ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.6, delay: 1 + index * 0.2 }}
+                className="relative"
+              >
+                <div className="relative pl-6 border-l-2 border-pear/30">
+                  <p className="text-lg md:text-xl text-stone/80 italic leading-relaxed mb-3">
+                    "{quote.text}"
+                  </p>
+                  <p className="text-sm text-pear font-nav">
+                    {quote.author}
+                    {quote.title && (
+                      <span className="text-stone/50 font-sans ml-2">
+                        {quote.title}
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
 
