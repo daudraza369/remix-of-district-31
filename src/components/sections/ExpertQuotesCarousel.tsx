@@ -55,49 +55,44 @@ export function ExpertQuotesCarousel() {
 
   const slideVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 100 : -100,
+      x: direction > 0 ? 60 : -60,
       opacity: 0,
-      filter: 'blur(10px)',
     }),
     center: {
       x: 0,
       opacity: 1,
-      filter: 'blur(0px)',
     },
     exit: (direction: number) => ({
-      x: direction < 0 ? 100 : -100,
+      x: direction < 0 ? 60 : -60,
       opacity: 0,
-      filter: 'blur(10px)',
     }),
   };
 
   return (
-    <section className="relative py-12 md:py-20 overflow-hidden bg-deep-forest">
-      {/* Remove top gradient - divider handles the transition */}
-      
-      {/* Ambient background glow */}
-      <div className="absolute inset-0 pointer-events-none">
+    <section className="relative py-12 md:py-20 overflow-hidden bg-deep-forest content-auto">
+      {/* Simplified ambient glow - hidden on mobile */}
+      <div className="absolute inset-0 pointer-events-none hidden md:block">
         <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px]"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] opacity-50"
           style={{
-            background: 'radial-gradient(ellipse, hsl(72 46% 83% / 0.05), transparent 70%)',
+            background: 'radial-gradient(ellipse, hsl(72 46% 83% / 0.04), transparent 70%)',
           }}
         />
       </div>
 
-      {/* Decorative quote marks */}
-      <div className="absolute left-8 md:left-20 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none">
-        <Quote className="w-32 h-32 md:w-48 md:h-48 text-pear" />
+      {/* Decorative quote marks - hidden on mobile for performance */}
+      <div className="absolute left-8 md:left-20 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none hidden md:block">
+        <Quote className="w-24 h-24 md:w-32 md:h-32 text-pear" />
       </div>
-      <div className="absolute right-8 md:right-20 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none rotate-180">
-        <Quote className="w-32 h-32 md:w-48 md:h-48 text-pear" />
+      <div className="absolute right-8 md:right-20 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none rotate-180 hidden md:block">
+        <Quote className="w-24 h-24 md:w-32 md:h-32 text-pear" />
       </div>
 
       <div ref={ref} className="container-luxury px-6 md:px-12 lg:px-20 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto"
         >
           {/* Section label */}
@@ -118,11 +113,10 @@ export function ExpertQuotesCarousel() {
                 animate="center"
                 exit="exit"
                 transition={{
-                  x: { type: 'spring', stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.4 },
-                  filter: { duration: 0.4 },
+                  x: { type: 'spring', stiffness: 400, damping: 35 },
+                  opacity: { duration: 0.3 },
                 }}
-                className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
+                className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 transform-gpu"
               >
                 {/* Quote type badge */}
                 <span className="inline-block px-3 py-1 rounded-full bg-pear/10 border border-pear/20 text-xs text-pear uppercase tracking-widest font-nav mb-6">

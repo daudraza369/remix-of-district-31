@@ -126,30 +126,50 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     @apply bg-background text-foreground font-body antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* GPU acceleration for animations */
+  .gpu-accelerate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
   }
 
+  /* Responsive typography with clamp for smooth scaling */
   h1 {
-    @apply text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase tracking-tight leading-none;
+    font-size: clamp(2.5rem, 5vw + 1rem, 6rem);
+    @apply uppercase tracking-tight leading-none;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl lg:text-5xl tracking-tight leading-tight;
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 3.5rem);
+    @apply tracking-tight leading-tight;
   }
 
   h3 {
-    @apply text-2xl md:text-3xl lg:text-4xl leading-tight;
+    font-size: clamp(1.5rem, 2vw + 0.5rem, 2.5rem);
+    @apply leading-tight;
   }
 
   h4 {
-    @apply text-xl md:text-2xl leading-tight;
+    font-size: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem);
+    @apply leading-tight;
+  }
+
+  /* Optimize images globally */
+  img {
+    content-visibility: auto;
   }
 }
 
@@ -570,17 +590,48 @@
     text-wrap: balance;
   }
 
+  /* GPU-accelerated transforms for smooth animations */
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Optimize animations on mobile */
+  @media (max-width: 768px) {
+    .animate-glow-pulse,
+    .animate-parallax-float {
+      animation: none !important;
+    }
+    
+    .text-shimmer {
+      animation-duration: 6s !important;
+    }
+  }
+
   /* Parallax transforms */
   .parallax-slow {
     will-change: transform;
+    transform: translateZ(0);
   }
 
   .parallax-medium {
     will-change: transform;
+    transform: translateZ(0);
   }
 
   .parallax-fast {
     will-change: transform;
+    transform: translateZ(0);
   }
 
   /* Mask gradient for smooth edges */
@@ -594,9 +645,38 @@
     -webkit-mask-image: linear-gradient(to top, black 80%, transparent 100%);
   }
 
-  /* Noise texture overlay */
+  /* Responsive text utilities */
+  .text-responsive-sm {
+    font-size: clamp(0.875rem, 1vw + 0.5rem, 1rem);
+  }
+
+  .text-responsive-base {
+    font-size: clamp(1rem, 1.2vw + 0.5rem, 1.25rem);
+  }
+
+  .text-responsive-lg {
+    font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem);
+  }
+
+  .text-responsive-xl {
+    font-size: clamp(1.25rem, 2vw + 0.5rem, 2rem);
+  }
+
+  /* Content visibility for performance */
+  .content-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
+
+  /* Noise texture overlay - disabled on mobile for performance */
   .noise {
-    @apply pointer-events-none fixed inset-0 z-50 opacity-[0.03];
+    @apply pointer-events-none fixed inset-0 z-50 opacity-[0.02];
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  @media (max-width: 768px) {
+    .noise {
+      display: none;
+    }
   }
 }

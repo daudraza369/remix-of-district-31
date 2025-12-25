@@ -68,49 +68,40 @@ export function HeroSection() {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen overflow-hidden bg-deep-forest">
-      {/* Cinematic background with parallax */}
+      {/* Cinematic background with parallax - GPU accelerated */}
       <motion.div 
-        className="absolute inset-0"
+        className="absolute inset-0 transform-gpu"
         style={{ y: backgroundY, scale }}
       >
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, scale: 1.2 }}
+            initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0"
           >
             <img
               src={slides[currentSlide].image}
               alt={slides[currentSlide].title}
               className="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
             />
           </motion.div>
         </AnimatePresence>
         
-        {/* Multi-layer gradient overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-r from-night-green via-night-green/90 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-deep-forest via-transparent to-night-green/50" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-deep-forest/90" />
-        
-        {/* Subtle vignette */}
-        <div className="absolute inset-0" style={{
-          background: 'radial-gradient(ellipse at center, transparent 0%, hsl(155 28% 10% / 0.4) 100%)'
-        }} />
+        {/* Simplified gradient overlay for better performance */}
+        <div className="absolute inset-0 bg-gradient-to-r from-night-green/95 via-night-green/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-night-green/30 via-transparent to-deep-forest/95" />
       </motion.div>
 
-      {/* Animated glow accent */}
-      <motion.div 
-        className="absolute top-1/3 left-1/4 w-[600px] h-[600px] pointer-events-none"
-        animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      {/* Animated glow accent - simplified for performance */}
+      <div 
+        className="absolute top-1/3 left-1/4 w-[600px] h-[600px] pointer-events-none opacity-10 hidden md:block"
         style={{
-          background: 'radial-gradient(circle, hsl(72 46% 83% / 0.15), transparent 60%)',
+          background: 'radial-gradient(circle, hsl(72 46% 83% / 0.2), transparent 60%)',
         }}
       />
 
