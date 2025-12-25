@@ -3,6 +3,7 @@ import { Footer } from '@/components/layout/Footer';
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { ProblemFramingSection } from '@/components/sections/ProblemFramingSection';
+import { SectionDivider } from '@/components/sections/SectionDivider';
 import { ExpertQuotesCarousel } from '@/components/sections/ExpertQuotesCarousel';
 import { OurApproachSection } from '@/components/sections/OurApproachSection';
 import { WhyChooseUsSection } from '@/components/sections/WhyChooseUsSection';
@@ -36,6 +37,9 @@ const Index = () => {
         
         {/* Problem framing - Create urgency */}
         <ProblemFramingSection />
+        
+        {/* Interactive divider */}
+        <SectionDivider transitionText="But the research goes deeper" />
         
         {/* Expert quotes carousel */}
         <ExpertQuotesCarousel />

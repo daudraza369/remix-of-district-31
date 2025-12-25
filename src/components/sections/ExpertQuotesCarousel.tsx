@@ -72,9 +72,8 @@ export function ExpertQuotesCarousel() {
   };
 
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-deep-forest">
-      {/* Seamless gradient transition from previous section */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-deep-forest to-transparent pointer-events-none" />
+    <section className="relative py-12 md:py-20 overflow-hidden bg-deep-forest">
+      {/* Remove top gradient - divider handles the transition */}
       
       {/* Ambient background glow */}
       <div className="absolute inset-0 pointer-events-none">
