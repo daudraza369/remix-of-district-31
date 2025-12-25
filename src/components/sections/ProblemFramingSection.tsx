@@ -53,19 +53,19 @@ export function ProblemFramingSection() {
   return (
     <section 
       ref={sectionRef}
-      className="relative py-28 md:py-36 lg:py-44 overflow-hidden bg-deep-forest"
+      className="relative py-20 md:py-28 lg:py-36 overflow-hidden bg-deep-forest content-auto"
     >
-      {/* Parallax background texture */}
+      {/* Simplified parallax background - GPU accelerated */}
       <motion.div 
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-30 transform-gpu"
         style={{ y: backgroundY }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-night-green via-deep-forest to-night-green" />
       </motion.div>
 
-      {/* Subtle grid pattern */}
+      {/* Simplified grid pattern - hidden on mobile for performance */}
       <div 
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-5 hidden md:block"
         style={{
           backgroundImage: `linear-gradient(hsl(72 46% 83% / 0.1) 1px, transparent 1px),
                            linear-gradient(90deg, hsl(72 46% 83% / 0.1) 1px, transparent 1px)`,
@@ -73,10 +73,10 @@ export function ProblemFramingSection() {
         }}
       />
 
-      {/* Glow accent */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none">
+      {/* Static glow accent - no animation for performance */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none hidden md:block">
         <div 
-          className="w-full h-full animate-glow-pulse"
+          className="w-full h-full opacity-40"
           style={{
             background: 'radial-gradient(circle, hsl(72 46% 83% / 0.08), transparent 60%)',
           }}
@@ -86,10 +86,10 @@ export function ProblemFramingSection() {
       <div ref={ref} className="container-luxury px-6 md:px-12 lg:px-20 relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 60, filter: 'blur(10px)' }}
-          animate={isVisible ? { opacity: 1, y: 0, filter: 'blur(0)' } : {}}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-4xl mx-auto text-center mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl mx-auto text-center mb-16 md:mb-20"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pear/10 border border-pear/20 mb-6">
             <AlertTriangle className="w-4 h-4 text-pear" />
@@ -112,11 +112,11 @@ export function ProblemFramingSection() {
           {problems.map((problem, index) => (
             <motion.div
               key={problem.label}
-              initial={{ opacity: 0, y: 80, filter: 'blur(10px)' }}
-              animate={isVisible ? { opacity: 1, y: 0, filter: 'blur(0)' } : {}}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
               transition={{
-                duration: 0.8,
-                delay: 0.2 + index * 0.12,
+                duration: 0.5,
+                delay: 0.1 + index * 0.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
               className="group relative"
