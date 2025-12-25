@@ -2,6 +2,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Lightbulb, Ruler, Wrench, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const steps = [
   {
@@ -55,7 +58,7 @@ export function OurApproachSection() {
       <div className="absolute bottom-20 left-10 w-96 h-96 bg-slate-moss/10 rounded-full blur-3xl pointer-events-none" />
 
       <div ref={ref} className="container-luxury px-6 md:px-12 lg:px-20 relative z-10">
-        {/* Header */}
+        {/* Header with transition from problem to solution */}
         <motion.div
           initial={{ opacity: 0, y: 60, filter: 'blur(10px)' }}
           animate={isVisible ? { opacity: 1, y: 0, filter: 'blur(0)' } : {}}
@@ -63,17 +66,21 @@ export function OurApproachSection() {
           className="max-w-3xl mb-20"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-night-green/5 border border-night-green/10 mb-6">
-            <span className="text-sm text-night-green uppercase tracking-widest font-nav">Our Approach</span>
+            <span className="text-sm text-night-green uppercase tracking-widest font-nav">The Solution</span>
           </div>
           
           <h2 className="text-night-green mb-6 uppercase font-heading">
-            <span className="block text-3xl md:text-4xl lg:text-5xl">A Method,</span>
-            <span className="block text-gradient text-4xl md:text-5xl lg:text-6xl">Not a Template</span>
+            <span className="block text-3xl md:text-4xl lg:text-5xl">This Is Where</span>
+            <span className="block text-gradient text-4xl md:text-5xl lg:text-6xl">District Steps In</span>
           </h2>
           
-          <p className="text-xl md:text-2xl text-slate-moss leading-relaxed">
-            Every space has unique character. Our process ensures solutions that feel intentional, 
-            not off-the-shelf.
+          <p className="text-xl md:text-2xl text-slate-moss leading-relaxed mb-4">
+            We've seen the cost of sterile spaces—and we've spent years perfecting the antidote.
+          </p>
+          
+          <p className="text-body text-slate-moss/80 leading-relaxed">
+            Our approach transforms these hidden liabilities into competitive advantages. 
+            Through strategic biophilic design, we create environments where people don't just work—they thrive.
           </p>
         </motion.div>
 
@@ -128,6 +135,24 @@ export function OurApproachSection() {
               </motion.div>
             ))}
           </div>
+
+          {/* CTA after steps */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="mt-16 text-center"
+          >
+            <p className="text-slate-moss mb-6 text-lg">
+              Ready to transform your space into an environment where people thrive?
+            </p>
+            <Link to="/contact">
+              <Button variant="default" size="lg" className="group">
+                Start Your Transformation
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>
