@@ -111,7 +111,8 @@ export function HeroSection() {
         style={{ opacity }}
       >
         <div className="w-full px-6 md:px-10 lg:px-12 xl:px-16 py-32">
-          <div className="max-w-4xl">
+          {/* Offset to align with nav text (after logo) */}
+          <div className="max-w-4xl ml-0 md:ml-[90px] lg:ml-[100px] xl:ml-[110px]">
             <AnimatePresence mode="wait">
               <motion.div key={currentSlide}>
                 {/* Eyebrow text */}
