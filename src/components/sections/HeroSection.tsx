@@ -110,15 +110,9 @@ export function HeroSection() {
         className="relative z-30 min-h-screen flex items-center"
         style={{ opacity }}
       >
-        <div className="w-full px-6 md:px-10 lg:px-12 xl:px-16 py-32">
-          {/* Mirror header structure: logo spacer + centered content + CTA spacer */}
-          <div className="flex items-start">
-            {/* Left spacer - matches logo width */}
-            <div className="hidden lg:block shrink-0 w-[80px]" />
-            
-            {/* Content area - matches nav centering */}
-            <div className="flex-1 flex lg:justify-center">
-              <div className="w-full lg:w-auto lg:min-w-[600px] xl:min-w-[700px] text-left">
+        <div className="w-full py-32 px-6 md:px-10 lg:px-[90px] xl:px-[90px] 2xl:px-[120px]">
+          {/* Content aligned with nav "DISTRICT" position */}
+          <div className="max-w-3xl">
                 <AnimatePresence mode="wait">
                   <motion.div key={currentSlide}>
                     {/* Eyebrow text */}
@@ -228,12 +222,7 @@ export function HeroSection() {
                 </motion.div>
               </div>
             </div>
-            
-            {/* Right spacer - matches CTA width */}
-            <div className="hidden lg:block shrink-0 w-[200px] xl:w-[220px]" />
-          </div>
-        </div>
-      </motion.div>
+          </motion.div>
 
       {/* Scroll indicator - simplified arrow only */}
       <motion.div
