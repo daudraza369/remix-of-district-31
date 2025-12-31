@@ -110,9 +110,9 @@ export function HeroSection() {
         className="relative z-30 min-h-screen flex items-center"
         style={{ opacity }}
       >
-        <div className="w-full px-6 md:px-10 lg:px-12 xl:px-16 py-32">
-          {/* Align with nav - logo width + gap */}
-          <div className="max-w-4xl lg:ml-[104px] xl:ml-[112px]">
+        <div className="w-full py-32 px-6 md:px-10 lg:pl-[160px] lg:pr-12 xl:pl-[192px] xl:pr-16">
+          {/* Aligned with nav - combines container padding + logo width + nav gap */}
+          <div className="max-w-4xl">
             <AnimatePresence mode="wait">
               <motion.div key={currentSlide}>
                 {/* Eyebrow text */}
