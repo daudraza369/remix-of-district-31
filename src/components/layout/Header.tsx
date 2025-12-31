@@ -97,14 +97,14 @@ export function Header() {
       >
         <div className="w-full px-6 md:px-10 lg:px-12 xl:px-16">
           <nav className="flex items-center justify-between">
-            {/* Logo - Fixed width for balance */}
-            <Link to="/" className="relative z-[60] flex flex-col items-center group shrink-0 w-[60px] md:w-[70px] lg:w-[80px]">
+            {/* Logo - Refined sizing for balance */}
+            <Link to="/" className="relative z-[60] flex flex-col items-center group shrink-0 w-[44px] md:w-[48px] lg:w-[52px]">
               {/* Transparent header: show pear brandmark */}
               <img
                 src={logoBrandmarkPear}
                 alt="District Interiors"
                 className={cn(
-                  "h-12 md:h-14 lg:h-16 w-auto transition-all duration-500",
+                  "h-9 md:h-10 lg:h-11 w-auto transition-all duration-500",
                   shouldUseTransparentHeader && !isScrolled ? "opacity-100" : "opacity-0 h-0 absolute",
                 )}
               />
@@ -113,7 +113,7 @@ export function Header() {
                 src={logoBrandmarkNightGreen}
                 alt="District"
                 className={cn(
-                  "h-10 md:h-11 lg:h-12 w-auto transition-all duration-500",
+                  "h-8 md:h-9 lg:h-10 w-auto transition-all duration-500",
                   !shouldUseTransparentHeader || isScrolled ? "opacity-100" : "opacity-0 h-0 absolute",
                 )}
               />
