@@ -119,8 +119,8 @@ export function Header() {
               />
             </Link>
 
-            {/* Desktop Navigation - Centered with padding to avoid CTA overlap */}
-            <div className="hidden lg:flex items-center justify-center flex-1 gap-3 xl:gap-5 2xl:gap-7 px-4 xl:px-8">
+            {/* Desktop Navigation - Left aligned after logo */}
+            <div className="hidden lg:flex items-center justify-start flex-1 gap-3 xl:gap-5 2xl:gap-7 pl-6 xl:pl-8">
               {navItems.map((item) => (
                 <div
                   key={item.label}
