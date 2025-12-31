@@ -10,20 +10,23 @@ const slides = [
   {
     image: heroImage,
     title: 'BEYOND DESIGN',
+    eyebrow: 'Premium Plantscaping for Modern Interiors',
     subtitle: 'Where Interiors Meet Nature',
-    description: 'We engineer environments that elevate human experience, productivity, and well-being.',
+    description: 'We engineer environments that elevate human experience, productivity, and well-being through considered botanical design.',
   },
   {
     image: hotelAtriumImg,
-    title: 'CRAFTED AMBIANCE',
+    title: 'CRAFTED ATMOSPHERE',
+    eyebrow: 'Bespoke Solutions for Hospitality & Corporate',
     subtitle: 'Where Interiors Meet Nature',
     description: 'Every installation is a considered response to space, light, and the people who inhabit it.',
   },
   {
     image: restaurantImg,
     title: 'LIVING SPACES',
+    eyebrow: 'Custom Trees, Green Walls & Plantscaping',
     subtitle: 'Where Interiors Meet Nature',
-    description: 'Bespoke greenery solutions for hospitality, corporate, and residential environments.',
+    description: 'Bespoke greenery solutions for hospitality, corporate, and residential environments across the&nbsp;region.',
   },
 ];
 
@@ -148,7 +151,19 @@ export function HeroSection() {
           <div className="max-w-3xl mx-auto lg:mx-0 lg:ml-[calc(50%-384px)]">
             <AnimatePresence mode="wait">
               <motion.div key={currentSlide}>
-                {/* Eyebrow text */}
+                {/* Primary eyebrow - service category */}
+                <motion.p
+                  variants={fadeUpVariants}
+                  initial="hidden"
+                  animate={isLoaded ? "visible" : "hidden"}
+                  exit="exit"
+                  transition={{ duration: 0.6, ease: easing, delay: 0.05 }}
+                  className="text-stone/80 text-xs md:text-sm uppercase tracking-[0.25em] font-body mb-2"
+                >
+                  {slides[currentSlide].eyebrow}
+                </motion.p>
+
+                {/* Secondary eyebrow - brand tagline */}
                 <motion.p
                   variants={fadeUpVariants}
                   initial="hidden"
@@ -173,7 +188,7 @@ export function HeroSection() {
                   <span className="block text-shimmer-optimized">{slides[currentSlide].title.split(' ').slice(1).join(' ')}</span>
                 </motion.h1>
 
-                {/* Description */}
+                {/* Description - using dangerouslySetInnerHTML for &nbsp; support */}
                 <motion.p
                   variants={fadeUpVariants}
                   initial="hidden"
@@ -181,9 +196,8 @@ export function HeroSection() {
                   exit="exit"
                   transition={{ duration: 0.6, ease: easing, delay: 0.3 }}
                   className="text-xl md:text-2xl text-stone font-body mb-4 leading-relaxed max-w-2xl"
-                >
-                  {slides[currentSlide].description}
-                </motion.p>
+                  dangerouslySetInnerHTML={{ __html: slides[currentSlide].description }}
+                />
               </motion.div>
             </AnimatePresence>
 
