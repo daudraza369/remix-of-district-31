@@ -9,19 +9,19 @@ import restaurantImg from '@/assets/restaurant-plants.jpg';
 const slides = [
   {
     image: heroImage,
-    title: 'SPACES THAT BREATHE',
+    title: 'BEYOND DESIGN',
     subtitle: 'Where Interiors Meet Nature',
-    description: 'We don\'t just add plants. We engineer environments that elevate human experience, productivity, and well-being.',
+    description: 'We engineer environments that elevate human experience, productivity, and well-being.',
   },
   {
     image: hotelAtriumImg,
-    title: 'BEYOND DECORATION',
+    title: 'CRAFTED AMBIANCE',
     subtitle: 'Where Interiors Meet Nature',
     description: 'Every installation is a considered response to space, light, and the people who inhabit it.',
   },
   {
     image: restaurantImg,
-    title: 'CRAFTED ATMOSPHERES',
+    title: 'LIVING SPACES',
     subtitle: 'Where Interiors Meet Nature',
     description: 'Bespoke greenery solutions for hospitality, corporate, and residential environments.',
   },
