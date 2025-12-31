@@ -151,19 +151,7 @@ export function HeroSection() {
           <div className="max-w-3xl mx-auto lg:mx-0 lg:ml-[calc(50%-384px)]">
             <AnimatePresence mode="wait">
               <motion.div key={currentSlide}>
-                {/* Primary eyebrow - service category */}
-                <motion.p
-                  variants={fadeUpVariants}
-                  initial="hidden"
-                  animate={isLoaded ? "visible" : "hidden"}
-                  exit="exit"
-                  transition={{ duration: 0.6, ease: easing, delay: 0.05 }}
-                  className="text-stone/80 text-xs md:text-sm uppercase tracking-[0.25em] font-body mb-2"
-                >
-                  {slides[currentSlide].eyebrow}
-                </motion.p>
-
-                {/* Secondary eyebrow - brand tagline */}
+                {/* Eyebrow - brand tagline */}
                 <motion.p
                   variants={fadeUpVariants}
                   initial="hidden"
