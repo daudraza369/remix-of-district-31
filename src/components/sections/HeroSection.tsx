@@ -11,14 +11,14 @@ const slides = [
     image: heroImage,
     title: 'BEYOND DESIGN',
     eyebrow: 'Premium Plantscaping for Modern Interiors',
-    subtitle: 'Where Interiors Meet Nature',
+    subtitle: 'From Vision to Reality',
     description: 'We engineer environments that elevate human experience, productivity, and well-being through considered botanical design.',
   },
   {
     image: hotelAtriumImg,
     title: 'CRAFTED ATMOSPHERE',
     eyebrow: 'Bespoke Solutions for Hospitality & Corporate',
-    subtitle: 'Where Interiors Meet Nature',
+    subtitle: 'Strategic Biophilic Design',
     description: 'Every installation is a considered response to space, light, and the people who inhabit it.',
   },
   {
