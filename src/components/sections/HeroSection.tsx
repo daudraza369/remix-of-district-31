@@ -110,116 +110,127 @@ export function HeroSection() {
         className="relative z-30 min-h-screen flex items-center"
         style={{ opacity }}
       >
-        <div className="w-full py-32 px-6 md:px-10 lg:pl-[160px] lg:pr-12 xl:pl-[192px] xl:pr-16">
-          {/* Aligned with nav - combines container padding + logo width + nav gap */}
-          <div className="max-w-4xl">
-            <AnimatePresence mode="wait">
-              <motion.div key={currentSlide}>
-                {/* Eyebrow text */}
-                <motion.p
-                  initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-                  animate={isLoaded ? { opacity: 1, y: 0, filter: 'blur(0)' } : {}}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.8, delay: 0.1 }}
-                  className="text-pear text-sm md:text-base uppercase tracking-[0.3em] font-nav mb-4"
-                >
-                  {slides[currentSlide].subtitle}
-                </motion.p>
+        <div className="w-full px-6 md:px-10 lg:px-12 xl:px-16 py-32">
+          {/* Mirror header structure: logo spacer + centered content + CTA spacer */}
+          <div className="flex items-start">
+            {/* Left spacer - matches logo width */}
+            <div className="hidden lg:block shrink-0 w-[80px]" />
+            
+            {/* Content area - matches nav centering */}
+            <div className="flex-1 flex lg:justify-center">
+              <div className="w-full lg:w-auto lg:min-w-[600px] xl:min-w-[700px] text-left">
+                <AnimatePresence mode="wait">
+                  <motion.div key={currentSlide}>
+                    {/* Eyebrow text */}
+                    <motion.p
+                      initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+                      animate={isLoaded ? { opacity: 1, y: 0, filter: 'blur(0)' } : {}}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.8, delay: 0.1 }}
+                      className="text-pear text-sm md:text-base uppercase tracking-[0.3em] font-nav mb-4"
+                    >
+                      {slides[currentSlide].subtitle}
+                    </motion.p>
 
-                {/* Main headline with cinematic reveal */}
-                <motion.h1
-                  initial={{ opacity: 0, y: 80, filter: 'blur(20px)' }}
-                  animate={isLoaded ? { opacity: 1, y: 0, filter: 'blur(0)' } : {}}
-                  exit={{ opacity: 0, y: -40 }}
-                  transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-ivory mb-6 font-heading uppercase tracking-tight leading-[0.9]"
-                >
-                  <span className="block">{slides[currentSlide].title.split(' ')[0]}</span>
-                  <span className="block text-shimmer">{slides[currentSlide].title.split(' ').slice(1).join(' ')}</span>
-                </motion.h1>
+                    {/* Main headline with cinematic reveal */}
+                    <motion.h1
+                      initial={{ opacity: 0, y: 80, filter: 'blur(20px)' }}
+                      animate={isLoaded ? { opacity: 1, y: 0, filter: 'blur(0)' } : {}}
+                      exit={{ opacity: 0, y: -40 }}
+                      transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-ivory mb-6 font-heading uppercase tracking-tight leading-[0.9]"
+                    >
+                      <span className="block">{slides[currentSlide].title.split(' ')[0]}</span>
+                      <span className="block text-shimmer">{slides[currentSlide].title.split(' ').slice(1).join(' ')}</span>
+                    </motion.h1>
 
-                {/* Description with fade */}
-                <motion.p
+                    {/* Description with fade */}
+                    <motion.p
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
+                      className="text-xl md:text-2xl text-stone font-body mb-4 leading-relaxed max-w-2xl"
+                    >
+                      {slides[currentSlide].description}
+                    </motion.p>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Spacer for CTAs */}
+                <div className="mb-10" />
+
+                {/* CTA Buttons with magnetic hover */}
+                <motion.div
                   initial={{ opacity: 0, y: 40 }}
                   animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="text-xl md:text-2xl text-stone font-body mb-4 leading-relaxed max-w-2xl"
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                  className="flex flex-wrap gap-4"
                 >
-                  {slides[currentSlide].description}
-                </motion.p>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Spacer for CTAs */}
-            <div className="mb-10" />
-
-            {/* CTA Buttons with magnetic hover */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-wrap gap-4"
-            >
-              <Button 
-                variant="hero" 
-                size="lg" 
-                onClick={scrollToContact}
-                className="group relative overflow-hidden"
-              >
-                <span className="relative z-10">Start a Project</span>
-                <motion.div
-                  className="absolute inset-0 bg-pear"
-                  initial={{ x: '-100%' }}
-                  whileHover={{ x: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </Button>
-              <Button 
-                variant="heroOutline" 
-                size="lg" 
-                onClick={scrollToPortfolio}
-                className="group"
-              >
-                <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                View Our Work
-              </Button>
-            </motion.div>
-
-            {/* Slide Indicators - redesigned */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2 }}
-              className="flex items-center gap-4 mt-16"
-            >
-              <span className="text-xs text-stone/50 uppercase tracking-widest font-nav">
-                {String(currentSlide + 1).padStart(2, '0')}
-              </span>
-              <div className="flex gap-2">
-                {slides.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className="relative h-1 overflow-hidden rounded-full transition-all duration-500"
-                    style={{ width: index === currentSlide ? '48px' : '24px' }}
+                  <Button 
+                    variant="hero" 
+                    size="lg" 
+                    onClick={scrollToContact}
+                    className="group relative overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-ivory/20" />
-                    {index === currentSlide && (
-                      <motion.div
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 7 }}
-                        className="absolute inset-0 bg-pear origin-left"
-                      />
-                    )}
-                  </button>
-                ))}
+                    <span className="relative z-10">Start a Project</span>
+                    <motion.div
+                      className="absolute inset-0 bg-pear"
+                      initial={{ x: '-100%' }}
+                      whileHover={{ x: 0 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </Button>
+                  <Button 
+                    variant="heroOutline" 
+                    size="lg" 
+                    onClick={scrollToPortfolio}
+                    className="group"
+                  >
+                    <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                    View Our Work
+                  </Button>
+                </motion.div>
+
+                {/* Slide Indicators - redesigned */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.2 }}
+                  className="flex items-center gap-4 mt-16"
+                >
+                  <span className="text-xs text-stone/50 uppercase tracking-widest font-nav">
+                    {String(currentSlide + 1).padStart(2, '0')}
+                  </span>
+                  <div className="flex gap-2">
+                    {slides.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentSlide(index)}
+                        className="relative h-1 overflow-hidden rounded-full transition-all duration-500"
+                        style={{ width: index === currentSlide ? '48px' : '24px' }}
+                      >
+                        <div className="absolute inset-0 bg-ivory/20" />
+                        {index === currentSlide && (
+                          <motion.div
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: 1 }}
+                            transition={{ duration: 7 }}
+                            className="absolute inset-0 bg-pear origin-left"
+                          />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                  <span className="text-xs text-stone/50 uppercase tracking-widest font-nav">
+                    {String(slides.length).padStart(2, '0')}
+                  </span>
+                </motion.div>
               </div>
-              <span className="text-xs text-stone/50 uppercase tracking-widest font-nav">
-                {String(slides.length).padStart(2, '0')}
-              </span>
-            </motion.div>
+            </div>
+            
+            {/* Right spacer - matches CTA width */}
+            <div className="hidden lg:block shrink-0 w-[200px] xl:w-[220px]" />
           </div>
         </div>
       </motion.div>
